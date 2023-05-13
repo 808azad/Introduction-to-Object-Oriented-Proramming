@@ -1,1 +1,1 @@
-#Directory for testing purposes!
+#DIRECTORY FOR TESTING PURPOSES
