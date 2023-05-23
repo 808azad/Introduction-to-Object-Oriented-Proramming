@@ -73,7 +73,7 @@ namespace sdds {
 		ptr = str1;
 		int sz = strLen(str2);
 		for (; *ptr != '\0'; ptr++) {
-			if (strncmp(ptr, str2, sz) == 0) {
+			if (strnCmp(ptr, str2, sz) == 0) {
 				donePtr = ptr;
 			}
 		}
