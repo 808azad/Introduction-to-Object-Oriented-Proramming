@@ -66,7 +66,6 @@ namespace sdds {
 		return noOfChars;
 	}
 
-
 	const char* strStr(const char* str1, const char* str2) {
 		const char* donePtr = nullptr;
 		const char* ptr = nullptr;
