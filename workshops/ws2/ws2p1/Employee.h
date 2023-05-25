@@ -15,18 +15,15 @@ namespace sdds {
     // allocates the dyanmic array of employees and loads all the file
     // recoreds into the array
     bool load();
-    void display(const Employee& emp);
-    void display();
-    void deallocateMemory();
-
     // TODO: Declare the prototype for the display function that
     // displays a employee record on the screen:
-
+    void display(const Employee& emp);
     // TODO: Declare the prototype for the display function that 
     // first sorts the employees then displays all the employees on the screen
-
+    void display();
     // TODO: Declare the prototype for the deallocateMemory function that
     // first will deallocate all the names in the employee elements
     // then it will deallocate the employee array 
+    void deallocateMemory();
 }
 #endif

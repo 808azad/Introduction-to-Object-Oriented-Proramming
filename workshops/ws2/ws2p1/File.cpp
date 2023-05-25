@@ -21,21 +21,22 @@ namespace sdds {
       if (fptr) fclose(fptr);
    }
  
-   bool read(char empName[]) {
+   bool read(char* empName) {
        bool done = false;
        if (fscanf(fptr, "%[^\n]\n", empName) == 1) {
            done = true;
        }
        return done;
    }
-   bool read(int &empNum) {
+   bool read(int& empNum) {
        bool done = false;
        if (fscanf(fptr, "%d,", &empNum) == 1) {
            done = true;
        }
        return done;
+       
    }
-   bool read(double &empSalary) {
+   bool read(double& empSalary) {
        bool done = false;
        if (fscanf(fptr, "%lf,", &empSalary) == 1) {
            done = true;
