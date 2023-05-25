@@ -2,6 +2,7 @@
 using namespace std;
 
 namespace sdds {
+
 	void strCpy(char* des, const char* src) {
 		int i;
 		for (i = 0; src[i] != '\0'; i++) {
@@ -87,6 +88,7 @@ namespace sdds {
 		}
 		des[i] = '\0';
 	}
+
 }
 
 
