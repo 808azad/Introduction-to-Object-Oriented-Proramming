@@ -28,7 +28,7 @@ namespace sdds {
       bool ok = false;
       char name[128];
       if (read(emp.m_empNo) && read(emp.m_salary) && read(name)) {
-          emp.m_name = new char[strlen(name) + 1];
+          emp.m_name = new char[strLen(name) + 1];
           strCpy(emp.m_name, name);
           ok = true;
       }
