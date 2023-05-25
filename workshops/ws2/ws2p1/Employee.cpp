@@ -43,7 +43,7 @@ namespace sdds {
       if (openFile(DATAFILE)) {
           noOfEmployees = noOfRecords();
           employees = new Employee[noOfEmployees];
-          for (i; i < noOfEmployees; i++) {
+          for (; i < noOfEmployees; i++) {
               if (!(load(employees[i]))) {
                   cout << "incorrect number of records read; the data is possibly corrupted.";
                   delete[] employees;
