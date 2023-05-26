@@ -27,7 +27,7 @@ namespace sdds {
         bool ok = false;
         char postal[128];
         if (read(postal) && read(pop.noOfPeople)) {
-            pop.pstCode = new char[strlen(postal) + 1];
+            pop.pstCode = new char[strLen(postal) + 1];
             strCpy(pop.pstCode, postal);
             ok = true;
         }
