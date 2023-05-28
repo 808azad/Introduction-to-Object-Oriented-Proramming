@@ -23,12 +23,12 @@ namespace sdds {
         }
     }
 
-    bool load(Population& pop) {
+    bool load(Population& population) {
         bool ok = false;
         char postal[128];
-        if (read(postal) && read(pop.noOfPeople)) {
-            pop.pstCode = new char[strLen(postal) + 1];
-            strCpy(pop.pstCode, postal);
+        if (read(postal) && read(population.noOfPeople)) {
+            population.pstCode = new char[strlen(postal) + 1];
+            strCpy(population.pstCode, postal);
             ok = true;
         }
         return ok;
@@ -65,8 +65,8 @@ namespace sdds {
         return total;
     }
 
-    void display(const Population& pop) {
-        cout << pop.pstCode << ":  " << pop.noOfPeople << endl;
+    void display(const Population& population) {
+        cout << population.pstCode << ":  " << population.noOfPeople << endl;
     }
 
     void display() {
@@ -84,7 +84,7 @@ namespace sdds {
 
     void deallocateMemory() {
         int i;
-        for (i = 0; i < recordNum; i++) {
+        for (i = 0; i < recordNum; i++) { 
             delete[] populations[i].pstCode;
         }
         delete[] populations;
