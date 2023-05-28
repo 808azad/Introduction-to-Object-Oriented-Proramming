@@ -70,7 +70,7 @@ namespace sdds {
     }
 
     void display() {
-        cout << "Postal Code : population" << endl;
+        cout << "Postal Code: population" << endl;
         cout << "-------------------------" << endl;
         sort();
         for (int i = 0; i < recordNum; i++) {
