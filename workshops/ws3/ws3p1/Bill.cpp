@@ -16,7 +16,9 @@ namespace sdds {
 		if (m_title[0] != '\0' && m_items != nullptr) {
 			for (i = 0; i < m_noOfItems; i++) {
 				if (m_items[i].isValid()) {
-					done = true;
+					if (!(m_itemsAdded < m_noOfItems)) {
+						done = true;
+					}
 				}
 			}
 		}
@@ -55,16 +57,17 @@ namespace sdds {
 	}
 
 	void Bill::footer() const {
-		if (isValid()) {
+		cout << "+--------------------------------------+" << endl;
+		if (!isValid()) {
+			cout << "| Invalid Bill                         |" << endl;
+		}
+		else {
 			cout << "|                Total Tax: " << right << setw(10) 
 			<< fixed << setprecision(2) << totalTax() << " |" << endl;
 			cout << "|              Total Price: " << right << setw(10)
 			<< fixed << setprecision(2) << totalPrice() << " |" << endl;
 			cout << "|          Total After Tax: " << right << setw(10)
 			<< fixed << setprecision(2) << totalTax() + totalPrice() << " |" << endl;
-		}
-		else {
-			cout << "| Invalid Bill                         |" << endl;
 		}
 		cout << "+--------------------------------------+" << endl;
 	}

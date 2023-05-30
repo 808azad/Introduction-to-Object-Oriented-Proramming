@@ -17,7 +17,7 @@
 using namespace sdds;
 int main() {
    Bill B;
-   B.init("Quick Shopping", 5);
+   B.init("Invalid bill", 5);
    B.add("Milk 2%", 4.99, false);
    B.display();
    B.add(nullptr, 15.50, true);
@@ -25,7 +25,7 @@ int main() {
    B.add("Eggs", -2.99, false);
    B.display();
    B.deallocate();
-   B.init("Quick Shopping", 5);
+   B.init("Quick shopping", 5);
    B.add("Milk 2%", 4.99, false);
    B.add("Spatula", 15.50, true);
    B.add("Frying Pan", 24.99, true);
