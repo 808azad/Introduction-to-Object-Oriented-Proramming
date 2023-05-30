@@ -13,7 +13,7 @@ namespace sdds {
 	bool Bill::isValid() const {
 		bool done = false;
 		int i;
-		if (m_title[0] != '\0' && m_items != nullptr) {
+		if (m_title != nullptr && m_items != nullptr) {
 			for (i = 0; i < m_noOfItems; i++) {
 				if (m_items[i].isValid()) {
 					if (!(m_itemsAdded < m_noOfItems)) {
@@ -73,7 +73,7 @@ namespace sdds {
 	}
 
 	void Bill::init(const char* title, int noOfItems) {
-		if (title[0] == '\0' || noOfItems <= 0) {
+		if (title == nullptr || noOfItems <= 0) {
 			setEmpty();
 		}
 		else {
