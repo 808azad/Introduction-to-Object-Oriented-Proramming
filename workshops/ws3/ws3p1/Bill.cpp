@@ -49,7 +49,7 @@ namespace sdds {
 			cout << "| " << left << setw(36) << setfill(' ') << m_title << " |" << endl;
 		}
 		else {
-			cout << "| " << left << setw(36) << setfill(' ') << "Invalid bill" << " |" << endl;
+			cout << "| " << left << setw(36) << setfill(' ') << "Invalid Bill" << " |" << endl;
 		}
 		cout << "+----------------------+---------+-----+" << endl;
 		cout << "| Item Name            | Price   + Tax |" << endl;
