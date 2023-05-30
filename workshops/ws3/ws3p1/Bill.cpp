@@ -57,7 +57,7 @@ namespace sdds {
 	}
 
 	void Bill::footer() const {
-		cout << "+--------------------------------------+" << endl;
+		cout << "+----------------------+---------+-----+" << endl;
 		if (!isValid()) {
 			cout << "| Invalid Bill                         |" << endl;
 		}
