@@ -40,7 +40,7 @@ namespace sdds {
 
 	bool Item::isValid() const {
 		bool done = false;
-		if (m_price > 0.0 && m_itemName[0] != '\0') {
+		if (m_price > 0.0 && m_itemName != nullptr) {
 			done = true;
 		}
 		return done;
