@@ -54,7 +54,7 @@ namespace sdds {
 			cout << right << setw(12) << setfill(' ') << " |" << endl;
 		}
 		else {
-			cout << "| " << left << setw(50) << setfill(' ') << "    Invalid Calorie Consumption list" << " |" << endl;
+			cout << "| " << left << setw(50) << setfill(' ') << "   Invalid Calorie Consumption list" << " |" << endl;
 		}
 		cout << "+----------------------------------------------------+" << endl;
 	}
