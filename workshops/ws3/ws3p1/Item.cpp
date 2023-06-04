@@ -7,7 +7,7 @@ namespace sdds {
 
 	void Item::setName(const char* name) {
 		strnCpy(m_itemName, name, 20);
-		m_itemName[20] = '\0';
+		m_itemName[20] = '\0';  
 	}
 
 	void Item::setEmpty() {
