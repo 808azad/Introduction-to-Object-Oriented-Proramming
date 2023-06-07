@@ -107,10 +107,8 @@ namespace sdds {
 	}
 
 	Canister& Canister::pour(double quantity) {
-		if (m_usable && quantity > 0) {
-			if ((quantity + volume()) <= capacity()) {
+		if (m_usable && quantity > 0 && (quantity + volume()) <= capacity()) {
 				m_contentVolume += quantity;
-			}
 		}
 		else {
 			m_usable = false;
