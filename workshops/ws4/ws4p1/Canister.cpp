@@ -107,10 +107,8 @@ namespace sdds {
 	}
 
 	Canister& Canister::pour(double quantity) {
-		if (m_usable && quantity > 0) {
-			if ((quantity + volume()) <= capacity()) {
+		if (m_usable && quantity > 0 && (quantity + volume()) <= capacity()) {
 				m_contentVolume += quantity;
-			}
 		}
 		else {
 			m_usable = false;
@@ -139,7 +137,7 @@ namespace sdds {
 		}
 		else {
 			if (m_contentName != nullptr) {
-				cout << " of " << setw(7) << fixed << setprecision(1) << volume() << "cc   " << m_contentName << endl;
+				cout << " of " << setw(7) << fixed << setprecision(1) << volume() << "cc   " << m_contentName;
 			}
 		}
 		return cout;
