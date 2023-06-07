@@ -139,7 +139,7 @@ namespace sdds {
 		}
 		else {
 			if (m_contentName != nullptr) {
-				cout << " of " << setw(7) << fixed << setprecision(1) << volume() << "cc   " << m_contentName << endl;
+				cout << " of " << setw(7) << fixed << setprecision(1) << volume() << "cc   " << m_contentName;
 			}
 		}
 		return cout;
