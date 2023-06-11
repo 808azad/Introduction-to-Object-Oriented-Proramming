@@ -32,6 +32,7 @@ namespace sdds {
 		if (labels && labelNum > 0) {
 			for (j = 0; j < labelNum; j++) {
 				labels[j].printLabel();
+				cout << "\n";
 			}
 		}
 	}
