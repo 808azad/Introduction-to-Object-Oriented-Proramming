@@ -24,9 +24,6 @@ namespace sdds {
 			strnCpy(labelContent, content, 71);
 		}
 	}
-	const char* Label::getLabelContent() const {
-		return labelContent;
-	}
 
 	Label::~Label() {
 		delete[] labelContent;
