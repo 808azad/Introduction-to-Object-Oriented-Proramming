@@ -11,7 +11,6 @@ namespace sdds {
 		/*void setToDefault();
 		void setFrame(const char* frameArg);*/
 	public:
-		const char* getLabelContent() const;
 		Label();
 		Label(const char* frameArg);
 		Label(const char* frameArg, const char* content);

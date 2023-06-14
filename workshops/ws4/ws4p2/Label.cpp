@@ -21,11 +21,8 @@ namespace sdds {
 		labelContent = nullptr;
 		if (content != nullptr && content[0] != '\0') {
 			labelContent = new char[strLen(content) + 1];
-			strnCpy(labelContent, content, 70);
+			strnCpy(labelContent, content, 71);
 		}
-	}
-	const char* Label::getLabelContent() const {
-		return labelContent;
 	}
 
 	Label::~Label() {
@@ -41,7 +38,7 @@ namespace sdds {
 			labelContent = nullptr;
 		}
 		labelContent = new char[strLen(readContent) + 1];
-		strnCpy(labelContent, readContent, 70);
+		strnCpy(labelContent, readContent, 71);
 	}
 
 	ostream& Label::printLabel() const {
@@ -61,7 +58,7 @@ namespace sdds {
 					cout << frame[7];
 				}
 				if (content[0] == '\0' && j == 1) {
-					strnCpy(content, labelContent, 70);
+					strnCpy(content, labelContent, 71);
 					cout << " " << content << " ";
 				}
 				cout << frame[7];
@@ -71,7 +68,7 @@ namespace sdds {
 			for (int k = 0; k < strLen(labelContent) + 2; k++) {
 				cout << frame[5];
 			}
-			cout << frame[4] << endl;
+			cout << frame[4];
 		}
 		return cout;
 	}
