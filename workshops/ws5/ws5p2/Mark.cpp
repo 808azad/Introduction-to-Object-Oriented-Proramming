@@ -87,7 +87,7 @@ namespace sdds {
 		return letterGrade;
 	}
 
-	int operator+=(int& val, const Mark& marks) {
+	int operator+=(int& val, Mark& marks) {
 		if (marks.operator bool()) {
 			val += int(marks);
 		}

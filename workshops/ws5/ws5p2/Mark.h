@@ -20,7 +20,7 @@ namespace sdds {
 		Mark& operator+=(int val);
 		Mark& operator=(int val);
 	};
-	int operator+=(int val, const Mark& marks);
+	int operator+=(int& val, Mark& marks);
 
 }
 
