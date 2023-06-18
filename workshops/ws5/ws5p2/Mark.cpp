@@ -30,7 +30,7 @@ namespace sdds {
 	Mark& Mark::operator+=(int val) {
 		if (*this) {
 			mark += val;
-			if (mark < 0 || mark > 100) {
+			if (!(*this)) {
 				setEmpty();
 			}
 		}
