@@ -7,8 +7,6 @@ namespace sdds {
 
 	class Mark {
 		int mark;
-		/*char grade;
-		double scale4Mark;*/
 		void setEmpty();
 	public:
 		Mark();
