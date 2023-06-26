@@ -35,6 +35,7 @@ namespace sdds {
 			}
 		}
 		return *this;
+		
 	}
 
 	Mark& Mark::operator=(int val) {
