@@ -23,7 +23,6 @@ namespace sdds {
       void loadText();
       void saveAs(const char *fileName)const;
       void setEmpty();
-      bool IsValid() const;
    public:
       TextFile(unsigned pageSize = 15);
       TextFile(const char* filename, unsigned pageSize = 15);
