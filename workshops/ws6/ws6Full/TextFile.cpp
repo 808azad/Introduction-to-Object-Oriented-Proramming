@@ -29,25 +29,13 @@ namespace sdds {
         m_noOfLines = 0;
     }
 
-    bool TextFile::IsValid() const {
-        return (m_pageSize > 0 && m_noOfLines > 0 && m_textLines != nullptr && m_filename != nullptr);
-    }
-
     void TextFile::setFilename(const char* fname, bool isCopy) {
         if (!isCopy) {
-            if (m_filename) {
-                delete[] m_filename;
-                m_filename = nullptr;
-            }
             m_filename = new char[strLen(fname) + 1];
             strCpy(m_filename, fname);
         }
         else {
-            if (m_filename) {
-                delete[] m_filename;
-                m_filename = nullptr;
-            }
-            m_filename = new char[strLen(fname) + 1];
+            m_filename = new char[strLen(fname) + 3];
             strCpy(m_filename, "C_");
             strCat(m_filename, fname);
         }
@@ -55,7 +43,11 @@ namespace sdds {
 
     void TextFile::setNoOfLines() {
         ifstream file(m_filename);
-        if (!file) cout << "Failed to open a file at step 1" << endl;
+        if (!m_filename || !file) {
+            m_noOfLines = 0;
+            delete[] m_filename;
+            m_filename = nullptr;
+        }
         else {
             char ch;
             bool isNewLine = true;
@@ -74,19 +66,19 @@ namespace sdds {
         if (m_noOfLines == 0) {
             delete[] m_filename;
             m_filename = nullptr;
-
         }
     }
 
     void TextFile::loadText() {
-        if (!m_filename) {
-            if (m_textLines) {
-                delete[] m_textLines;
-                m_textLines = nullptr;
-            }
+        if (m_filename != nullptr) {
             ifstream file(m_filename);
-            if (!file) cout << "Failed to open a file at step 2" << endl;
+            if (!file) {
+                m_noOfLines = 0;
+                delete[] m_filename;
+                m_filename = nullptr;
+            }
             else {
+                setNoOfLines();
                 m_textLines = new Line[m_noOfLines];
                 string line;
                 unsigned lineIndex = 0;
@@ -94,21 +86,21 @@ namespace sdds {
                     m_textLines[lineIndex] = line.c_str();
                     lineIndex++;
                 }
-                m_noOfLines = lineIndex;
                 file.close();
+                m_noOfLines = lineIndex;
             }
         }
     }
 
+
     void TextFile::saveAs(const char* filename) const {
         if (!filename) {
             ofstream file(filename);
-            if (!file) cout << "Failed to open a file at step 3" << endl;
-            else {
-                for (int i = 0; i < m_noOfLines; i++) {
-                    file << m_textLines[i] << endl;
-                }
-                file.close();
+            if (file) {
+               for (unsigned i = 0; i < m_noOfLines; i++) {
+                   file << m_textLines[i] << endl;
+               }
+               file.close();
             }
         }
     }
@@ -122,32 +114,30 @@ namespace sdds {
         m_pageSize = pageSize;
         setEmpty();
         if (filename) {
-            setFilename(filename, true); //poxu cixsa bura bax
+            setFilename(filename, true);
             setNoOfLines();
             loadText();
         }
     }
 
     TextFile::TextFile(const TextFile& txtFile) {
-        m_pageSize = txtFile.m_pageSize;
-        setEmpty();
-        if (txtFile.IsValid()) { //poxu cixsa burada bax
-            setFilename(txtFile.m_filename, true);
-            saveAs(txtFile.m_filename);
-            setNoOfLines();
-            loadText();
-        }
+        setFilename(txtFile.m_filename, true);
+        saveAs(txtFile.m_filename);
+        m_noOfLines = txtFile.m_noOfLines;
+        setNoOfLines();
+        loadText();
     }
 
     TextFile& TextFile::operator=(const TextFile& txtFile) {
         if (this != &txtFile) {
-            if (IsValid() && txtFile.IsValid()) {
+            if (m_noOfLines > 0 && txtFile.m_noOfLines > 0) {
                 if (m_textLines) {
                     delete[] m_textLines;
                     m_textLines = nullptr;
                 }
-                setFilename(txtFile.m_filename, true);
-                saveAs(txtFile.m_filename);
+                setEmpty();
+                setFilename(txtFile.m_filename);
+                txtFile.saveAs(m_filename);
                 setNoOfLines();
                 loadText();
             }
@@ -165,21 +155,20 @@ namespace sdds {
     }
 
     ostream& TextFile::view(ostream& ostr) const {
-        if (IsValid()) {
+        if (m_filename && m_noOfLines > 0) {
             ostr << m_filename << endl;
             for (int i = 0; i < strLen(m_filename); i++) {
                 ostr << '=';
             }
             ostr << endl;
             unsigned lines = 0;
-            for (int j = 0; j < m_noOfLines; j++) {
+            for (unsigned j = 0; j < m_noOfLines; j++) {
                 ostr << m_textLines[j] << endl;
                 lines++;
                 if (lines == m_pageSize) {
                     ostr << "Hit ENTER to continue...";
                     ostr.flush();
-                    cin.ignore(numeric_limits <streamsize>::max(), '\n');
-                    lines = 0;
+                    cin.ignore();
                 }
             }
         }
@@ -187,23 +176,24 @@ namespace sdds {
     }
 
     istream& TextFile::getFile(istream& istr) {
-        char* filename = nullptr;
-        cin >> filename;
-        setFilename(filename, true);
+        char filename[250];
+        istr >> filename;
+        setFilename(filename);
         setNoOfLines();
         loadText();
         return istr;
     }
+
     const char* TextFile::operator[](unsigned index) const {
-        if (IsValid()) {
+        if (m_noOfLines > 0) {
             index %= m_noOfLines;
         }
-        return ((IsValid()) ? m_textLines[index] : nullptr);
+        return ((m_noOfLines > 0) ? m_textLines[index] : nullptr);
     }
 
     TextFile::operator bool() const {
         bool res = false;
-        if (IsValid()) res = true;
+        if (m_filename) res = true;
         return res;
     }
 
