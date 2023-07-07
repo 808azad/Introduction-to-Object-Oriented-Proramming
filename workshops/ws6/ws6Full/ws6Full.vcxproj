@@ -135,6 +135,9 @@
     <ClInclude Include="cstring.h" />
     <ClInclude Include="TextFile.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="echoes.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

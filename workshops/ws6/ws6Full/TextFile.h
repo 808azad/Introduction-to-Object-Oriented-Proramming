@@ -14,9 +14,9 @@ namespace sdds {
    };
 
    class TextFile {
-       Line* m_textLines{ nullptr };
-       char* m_filename{};
-       unsigned m_noOfLines{ 0 };
+      Line* m_textLines{ nullptr };
+      char* m_filename{};
+      unsigned m_noOfLines{ 0 };
       unsigned m_pageSize;
       void setFilename(const char* fname, bool isCopy = false);
       void setNoOfLines();
