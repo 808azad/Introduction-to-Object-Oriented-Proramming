@@ -114,7 +114,7 @@ namespace sdds {
         m_pageSize = pageSize;
         setEmpty();
         if (filename) {
-            setFilename(filename, true);
+            setFilename(filename);
             setNoOfLines();
             loadText();
         }
