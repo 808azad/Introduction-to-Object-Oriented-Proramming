@@ -98,7 +98,7 @@ namespace sdds {
             ofstream file(filename);
             if (file) {
                for (unsigned i = 0; i < m_noOfLines; i++) {
-                   file << m_textLines[i] << endl;
+                   file << m_textLines[i];
                }
                file.close();
             }
@@ -163,14 +163,16 @@ namespace sdds {
             ostr << endl;
             unsigned lines = 0;
             for (unsigned j = 0; j < m_noOfLines; j++) {
-                ostr << m_textLines[j] << endl;
+                ostr << m_textLines[j] << '\n';
                 lines++;
-                if (lines == m_pageSize) {
-                    ostr << "Hit ENTER to continue...";
+                if ((j + 1) % m_pageSize == 0) {
+                    if (j == 14) ostr << "Hit ENTER to continue..." << endl;
+                    else ostr << "Hit ENTER to continue...";
                     ostr.flush();
                     cin.ignore();
                 }
             }
+            cout << endl;
         }
         return ostr;
     }
