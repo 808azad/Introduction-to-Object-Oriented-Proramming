@@ -166,7 +166,7 @@ namespace sdds {
                 ostr << m_textLines[j] << endl;
                 lines++;
                 if (lines == m_pageSize) {
-                    ostr << "Hit ENTER to continue...";
+                    ostr << "Hit ENTER to continue..." << endl;
                     ostr.flush();
                     cin.ignore();
                 }
