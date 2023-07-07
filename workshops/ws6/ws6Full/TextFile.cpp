@@ -22,9 +22,9 @@ namespace sdds {
     }
 
     void TextFile::setEmpty() {
-        if (m_textLines) { delete[] m_textLines; }
+        delete[] m_textLines; 
         m_textLines = nullptr;
-        if (m_filename) { delete[] m_filename; }
+        delete[] m_filename; 
         m_filename = nullptr;
         m_noOfLines = 0;
     }
