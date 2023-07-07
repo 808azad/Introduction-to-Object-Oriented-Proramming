@@ -185,7 +185,11 @@ namespace sdds {
     }
 
     const char* TextFile::operator[](unsigned index) const {
-        return (m_noOfLines > 0) ? m_textLines[index % m_noOfLines] : nullptr;
+        if (m_noOfLines == 0) {
+            return nullptr;
+        }
+        index %= m_noOfLines;
+        return m_textLines[index];
     }
 
     TextFile::operator bool() const {
