@@ -30,14 +30,14 @@ namespace sdds {
     }
 
     void TextFile::setFilename(const char* fname, bool isCopy) {
-        if (!isCopy) {
-            m_filename = new char[strLen(fname) + 1];
-            strCpy(m_filename, fname);
-        }
-        else {
+        if (isCopy) {
             m_filename = new char[strLen(fname) + 3];
             strCpy(m_filename, "C_");
             strCat(m_filename, fname);
+        }
+        else {
+            m_filename = new char[strLen(fname) + 1];
+            strCpy(m_filename, fname);
         }
     }
 
@@ -121,23 +121,24 @@ namespace sdds {
     }
 
     TextFile::TextFile(const TextFile& txtFile) {
-        setFilename(txtFile.m_filename, true);
-        saveAs(txtFile.m_filename);
-        m_noOfLines = txtFile.m_noOfLines;
-        setNoOfLines();
-        loadText();
+        setEmpty();
+        if (txtFile.m_noOfLines > 0) {
+            m_pageSize = txtFile.m_pageSize;
+            setFilename(txtFile.m_filename, true);
+            saveAs(txtFile.m_filename);
+            setNoOfLines();
+            loadText();
+        }
     }
 
     TextFile& TextFile::operator=(const TextFile& txtFile) {
         if (this != &txtFile) {
             if (m_noOfLines > 0 && txtFile.m_noOfLines > 0) {
-                if (m_textLines) {
-                    delete[] m_textLines;
-                    m_textLines = nullptr;
-                }
+                delete[] m_textLines;
+                m_textLines = nullptr;
                 setEmpty();
                 setFilename(txtFile.m_filename);
-                txtFile.saveAs(m_filename);
+                saveAs(txtFile.m_filename);
                 setNoOfLines();
                 loadText();
             }
