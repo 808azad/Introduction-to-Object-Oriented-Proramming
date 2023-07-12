@@ -53,7 +53,7 @@ namespace sdds {
 	Menu::Menu() {
 		m_title = nullptr;
 		m_count = 0;
-		for (int i = 0; i < MAX_MENU_ITEMS; i++) {
+		for (unsigned int i = 0; i < MAX_MENU_ITEMS; i++) {
 			m_menuItems[i] = nullptr;
 		}
 	}
@@ -61,7 +61,7 @@ namespace sdds {
 	Menu::Menu(const char* title) {
 		m_title = nullptr;
 		m_count = 0;
-		for (int i = 0; i < MAX_MENU_ITEMS; i++) {
+		for (unsigned int i = 0; i < MAX_MENU_ITEMS; i++) {
 			m_menuItems[i] = nullptr;
 		}
 		if (title != nullptr && title[0] != '\0') {
@@ -72,7 +72,7 @@ namespace sdds {
 	Menu::~Menu() {
 		delete m_title;
 		m_title = nullptr;
-		for (int i = 0; i < m_count; i++) {
+		for (unsigned int i = 0; i < m_count; i++) {
 			delete[] m_menuItems[i];
 			m_menuItems[i] = nullptr;
 		}
