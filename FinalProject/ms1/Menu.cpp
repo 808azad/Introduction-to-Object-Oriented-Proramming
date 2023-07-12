@@ -88,7 +88,7 @@ namespace sdds {
 
 	ostream& Menu::displayMenu() {
 		displayTitle();
-		for (int i = 0; i < m_count; i++) {
+		for (unsigned int i = 0; i < m_count; i++) {
 			cout << right << setw(2) << (i + 1) << "- "; 
 			m_menuItems[i]->display(cout);
 			cout << endl;
