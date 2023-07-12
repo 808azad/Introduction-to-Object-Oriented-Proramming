@@ -3,7 +3,7 @@
 #include <iostream>
 
 namespace sdds {
-	const unsigned MAX_MENU_ITEMS = 20;
+	const unsigned int MAX_MENU_ITEMS = 20;
 	class MenuItem {
 		char* m_content;
 		void setEmpty();
@@ -22,7 +22,7 @@ namespace sdds {
 	class Menu {
 		MenuItem* m_title; // for title
 		MenuItem* m_menuItems[MAX_MENU_ITEMS]; //for the items
-		int m_count; //for tracking the number of menu items
+		unsigned int m_count; //for tracking the number of menu items
 	public:
 		Menu();
 		Menu(const char* title);
