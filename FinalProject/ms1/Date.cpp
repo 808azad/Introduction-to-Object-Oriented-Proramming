@@ -124,10 +124,15 @@ namespace sdds {
    }
 
    ostream& Date::write(ostream& os) const {
-       os << m_year << "/";
-       os << setw(2) << setfill('0') << m_mon << "/";
-       os << setw(2) << setfill('0') << m_day;
-       os << setfill(' ');
+       if (*this) {
+           os << m_year << "/";
+           os << setw(2) << setfill('0') << m_mon << "/";
+           os << setw(2) << setfill('0') << m_day;
+           os << setfill(' ');
+       }
+       else {
+           os << dateStatus();
+       }
        return os;
    }
 

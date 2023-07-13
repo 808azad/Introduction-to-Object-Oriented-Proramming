@@ -18,10 +18,6 @@ namespace sdds {
 
 	MenuItem::MenuItem(const char* receivedItem) {
 		if (receivedItem != nullptr && receivedItem[0] != '\0') {
-			if (m_content) {
-				delete[] m_content;
-				m_content = nullptr;
-			}
 			m_content = new char[strlen(receivedItem) + 1];
 			strcpy(m_content, receivedItem);
 		}
@@ -44,58 +40,53 @@ namespace sdds {
 	}
 
 	ostream& MenuItem::display(ostream& os) const {
-		if (bool(*this)) {
-			os << m_content;
-		}
+	    os << m_content;
 		return os;
 	}
 
 	Menu::Menu() {
-		m_title = nullptr;
+		m_title.setEmpty();
 		m_count = 0;
 		for (unsigned int i = 0; i < MAX_MENU_ITEMS; i++) {
 			m_menuItems[i] = nullptr;
 		}
 	}
 
-	Menu::Menu(const char* title) {
-		m_title = nullptr;
+	Menu::Menu(const char* title) : m_title(title){
 		m_count = 0;
 		for (unsigned int i = 0; i < MAX_MENU_ITEMS; i++) {
 			m_menuItems[i] = nullptr;
 		}
-		if (title != nullptr && title[0] != '\0') {
-			m_title = new MenuItem(title);
-		}
+		
 	}
 
 	Menu::~Menu() {
 		delete m_title;
-		m_title = nullptr;
+		m_title.setEmpty();
 		for (unsigned int i = 0; i < m_count; i++) {
 			delete[] m_menuItems[i];
 			m_menuItems[i] = nullptr;
 		}
 	}
 
-	ostream& Menu::displayTitle()  {
+	ostream& Menu::displayTitle(ostream& os) const {
 		if (m_title != nullptr && m_title[0] != '\0') {
-			m_title->display(cout);
-			cout << ":" << endl;
+			m_title.display(os);
+			os << ":" << endl;
 		}
-		return cout;
+		return os;
 	}
 
-	ostream& Menu::displayMenu() {
-		displayTitle();
+	ostream& Menu::displayMenu(ostream& os) const {
+		displayTitle(os);
 		for (unsigned int i = 0; i < m_count; i++) {
-			cout << right << setw(2) << (i + 1) << "- "; 
-			m_menuItems[i]->display(cout);
-			cout << endl;
+			os << right << setw(2) << (i + 1) << "- "; 
+			m_menuItems[i]->display(os);
+			os << endl;
 		}
-		cout << right << setw(2) << 0 << "- Exit" << endl;
-		cout << "> ";
-		return cout;
+		os << right << setw(2) << 0 << "- Exit" << endl;
+		os << "> ";
+		return os;
 	}
 
 	unsigned int Menu::run() {
@@ -121,11 +112,11 @@ namespace sdds {
 	}
 
 	Menu::operator unsigned int() const {//not sure about this
-		return unsigned(m_count);
+		return m_count;
 	}
 
-	 ostream& Menu::operator<<(ostream& os) {
-		 m_title->display(os);
+	 ostream& operator<<(ostream& os, const Menu& menu) {
+		 menu.displayTitle();
 		 return os;
 	 }
 
