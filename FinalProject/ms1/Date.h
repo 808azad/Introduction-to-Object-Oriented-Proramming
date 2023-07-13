@@ -27,7 +27,7 @@ namespace sdds {
    const int  MIN_YEAR = 1500;
    class Date {
    private:
-       int m_year{ 0 };
+      int m_year;
       int m_mon;
       int m_day;
       int m_ErrorCode;
