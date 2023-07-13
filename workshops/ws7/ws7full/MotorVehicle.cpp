@@ -33,7 +33,7 @@ namespace sdds {
 	}
 
 	ostream& MotorVehicle::write(ostream& os) const {
-		return os << "| " << m_year << " | " << m_licencePlate << " | " << m_adress << " |";
+		return os << "| " << m_year << " | " << m_licencePlate << " | " << m_adress;
 	}
 
 	istream& MotorVehicle::read(istream& is) {
