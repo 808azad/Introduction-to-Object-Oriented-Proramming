@@ -116,11 +116,11 @@ namespace sdds {
 		return *this;
 	}
 
-	Menu::operator int() const {
+	Menu::operator int() const {//not sure about this
 		return m_count;
 	}
 
-	Menu::operator unsigned int() const {
+	Menu::operator unsigned int() const {//not sure about this
 		return unsigned(m_count);
 	}
 
