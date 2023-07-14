@@ -27,8 +27,10 @@ namespace sdds {
 	}
 
 	MenuItem::~MenuItem() {
-		delete[] m_content;
-		m_content = nullptr;
+		if (m_content != nullptr) {
+			delete[] m_content;
+			m_content = nullptr;
+		}
 	}
 
 	MenuItem::operator bool() const {
@@ -61,8 +63,6 @@ namespace sdds {
 	}
 
 	Menu::~Menu() {
-		delete m_title;
-		m_title.setEmpty();
 		for (unsigned int i = 0; i < m_count; i++) {
 			delete[] m_menuItems[i];
 			m_menuItems[i] = nullptr;
@@ -119,7 +119,7 @@ namespace sdds {
 	}
 
 	 ostream& operator<<(ostream& os, const Menu& menu) {
-		 menu.displayTitle();
+		 menu.displayTitle(os);
 		 return os;
 	 }
 
