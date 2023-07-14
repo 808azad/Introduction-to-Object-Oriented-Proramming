@@ -72,13 +72,14 @@ namespace sdds {
 	ostream& Menu::displayTitle(ostream& os) const {
 		if (m_title != nullptr && m_title[0] != '\0') {
 			m_title.display(os);
-			os << ":" << endl;
 		}
 		return os;
 	}
 
 	ostream& Menu::displayMenu(ostream& os) const {
-		displayTitle(os);
+		if (m_title) {
+			os << ":" << endl;
+		}
 		for (unsigned int i = 0; i < m_count; i++) {
 			os << right << setw(2) << (i + 1) << "- "; 
 			m_menuItems[i]->display(os);
@@ -90,7 +91,9 @@ namespace sdds {
 	}
 
 	unsigned int Menu::run() {
-		displayMenu();
+		ostream& os = cout;
+		displayTitle(os);
+		displayMenu(os);
 		int choice = readInt(0, m_count, "Invalid Selection, try again: ");
 		return choice;
 	}
@@ -120,7 +123,7 @@ namespace sdds {
 		 return os;
 	 }
 
-	Menu::operator bool() {
+	Menu::operator bool() const {
 		return m_count > 0;
 	}
 
