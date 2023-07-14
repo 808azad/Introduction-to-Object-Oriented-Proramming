@@ -86,7 +86,7 @@ void menuTester() {
    m1 << "Omelet" << "Tuna Sandwich" << "California Roll";
    m2 << "Order more";
    if (m1) {
-      cout << "The " << m1 << " is not empty and has " << (unsigned int)(m1) << " menu items." << endl;
+       cout << "The " << m1 << " is not empty and has " << (unsigned int)m1 << " menu items." << endl;
    }
    else {
       cout << "Wrong output, your bool cast is done incorrenctly!";

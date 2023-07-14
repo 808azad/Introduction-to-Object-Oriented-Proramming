@@ -32,7 +32,7 @@ namespace sdds {
 		std::ostream& displayTitle(std::ostream& os = std::cout) const ;
 		std::ostream& displayMenu(std::ostream& os = std::cout) const;
 		unsigned int run();
-		operator bool();
+		operator bool() const;
 		operator int() const;
 		operator unsigned int() const;
 		Menu& operator<<(const char* menuItemContent);
