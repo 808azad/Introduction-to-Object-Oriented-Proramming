@@ -63,7 +63,6 @@ namespace sdds {
 	}
 
 	Menu::~Menu() {
-		m_title.setEmpty();
 		for (unsigned int i = 0; i < m_count; i++) {
 			delete m_menuItems[i];
 			m_menuItems[i] = nullptr;
