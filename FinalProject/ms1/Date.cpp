@@ -161,7 +161,7 @@ namespace sdds {
    }
 
    int operator-(const Date& date1, const Date& date2) {
-       return abs(date1.getDaysSince0001year() - date2.getDaysSince0001year());
+       return date1.getDaysSince0001year() - date2.getDaysSince0001year();
    }
    
    Date::operator bool() const {
