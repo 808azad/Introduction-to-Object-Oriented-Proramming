@@ -4,12 +4,13 @@ using namespace std;
 namespace sdds {
    
 	bool LibApp::confirm(const char* message) {
+		int res;
 		if (message != nullptr && message[0] != '\0') {
 			Menu confirmMenu(message);
 			confirmMenu << "Yes";
-			int res = confirmMenu.run();
-			return res == 1;
+			res = confirmMenu.run();
 		}
+		return res == 1;
 	}
 
 	void LibApp::load() {
