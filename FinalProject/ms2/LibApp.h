@@ -15,8 +15,9 @@ namespace sdds {
 	   void newPublication();
 	   void removePublication();
 	   void checkOutPub();
-	  
-
+   public:
+	   LibApp();
+	   void run();
    };
 }
 #endif // !SDDS_LIBAPP_H
