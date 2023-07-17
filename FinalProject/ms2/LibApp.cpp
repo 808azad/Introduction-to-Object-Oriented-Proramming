@@ -43,7 +43,7 @@ namespace sdds {
 	}
 
 	void LibApp::removePublication() {
-		cout << "Removing publication from the library" << endl;
+		cout << "Removing publication from library" << endl;
 		search();
 		if (confirm("Remove this publication from the library?")) {
 			m_changed = true;
