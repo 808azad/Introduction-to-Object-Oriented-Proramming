@@ -7,7 +7,8 @@ namespace sdds {
 		if (message != nullptr && message[0] != '\0') {
 			Menu confirmMenu(message);
 			confirmMenu << "Yes";
-			return (confirmMenu.run() == 1);
+			int res = confirmMenu.run();
+			return res == 1;
 		}
 	}
 
