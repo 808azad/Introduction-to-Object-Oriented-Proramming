@@ -4,7 +4,7 @@ using namespace std;
 namespace sdds {
    
 	bool LibApp::confirm(const char* message) {
-		int res;
+		int res = 0;
 		if (message != nullptr && message[0] != '\0') {
 			Menu confirmMenu(message);
 			confirmMenu << "Yes";
@@ -43,9 +43,9 @@ namespace sdds {
 	}
 
 	void LibApp::removePublication() {
-		cout << "Removing publication from library" << endl;
+		cout << "Removing publication from the library" << endl;
 		search();
-		if (confirm("Remove this publication from library?")) {
+		if (confirm("Remove this publication from the library?")) {
 			m_changed = true;
 			cout << "Publication removed" << endl;
 		}
