@@ -17,12 +17,10 @@ namespace sdds {
 
 	void LibApp::save() {
 		cout << "Saving Data" << endl;
-		cout << endl;
 	}
 
 	void LibApp::search() {
 		cout << "Searching for publication" << endl;
-		cout << endl;
 	}
 
 	void LibApp::returnPub() {
@@ -38,8 +36,8 @@ namespace sdds {
 		if (confirm("Add this publication to library?")) {
 			m_changed = true;
 			cout << "Publication added" << endl;
-			cout << endl;
 		}
+		cout << endl;
 	}
 
 	void LibApp::removePublication() {
@@ -48,8 +46,9 @@ namespace sdds {
 		if (confirm("Remove this publication from library?")) {
 			m_changed = true;
 			cout << "Publication removed" << endl;
-			cout << endl;
 		}
+		cout << endl;
+		
 	}
 
 	void LibApp::checkOutPub() {
@@ -57,8 +56,8 @@ namespace sdds {
 		if (confirm("Check out publication?")) {
 			m_changed = true;
 			cout << "Publication checked out" << endl;
-			cout << endl;
 		}
+		cout << endl;
 	}
 
 	LibApp::LibApp() : 
@@ -101,7 +100,8 @@ namespace sdds {
 								done = true;
 								break;
 							case 2:
-								m_changed = false;
+								m_changed = true;
+								cout << endl;
 								break;
 							default:
 								if (confirm("This will discard all the changes are you sure?")) {
@@ -117,7 +117,7 @@ namespace sdds {
 					}
 			}
 		}
-		cout << "-------------------------------------------" << endl;
+		cout << endl << "-------------------------------------------" << endl;
 		cout << "Thanks for using Seneca Library Application" << endl;
 	}
 
