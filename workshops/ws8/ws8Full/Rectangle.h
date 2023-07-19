@@ -1,7 +1,7 @@
 #ifndef SDDS_RECTANGLE_H
 #define SDDS_RECTANGLE_H
 
-#include "LbShape.h"
+#include "LblShape.h"
 
 namespace sdds {
 	
