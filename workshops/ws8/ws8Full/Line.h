@@ -1,7 +1,7 @@
 #ifndef SDDS_LINE_H
 #define SDDS_LINE_H
 
-#include "LbShape.h"
+#include "LblShape.h"
 
 namespace sdds {
 
