@@ -12,7 +12,7 @@ namespace sdds {
 
 	Rectangle::Rectangle(const char* labelString, int width, int height) : LbShape(labelString) {
 		if (width > 0 && height > 0) {
-			if (height >= 3 && width >= strlen(label()) + 2) {
+			if (height >= 3 && width >= strlen(label() + 2)) {
 				m_width = width;
 				m_height = height;
 			}
@@ -31,7 +31,7 @@ namespace sdds {
 		is.ignore();
 		is >> height;
 		if (width > 0 && height > 0) {
-			if (height >= 3 && width >= strlen(label()) + 2) {
+			if (height >= 3 && width >= strlen(label() + 2)) {
 				m_width = width;
 				m_height = height;
 			}
