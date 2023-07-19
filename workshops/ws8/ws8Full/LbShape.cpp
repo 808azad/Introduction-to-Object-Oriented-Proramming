@@ -2,7 +2,7 @@
 #include <cstring>
 #include "LbShape.h"
 using namespace std;
-
+//
 namespace sdds {
 
 	LbShape::LbShape() {
