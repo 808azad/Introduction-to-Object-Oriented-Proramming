@@ -10,8 +10,9 @@ namespace sdds {
 	}
 
 	Rectangle::Rectangle(const char* labelString, int width, int height) : LbShape(labelString) {
+		int labelLength = strlen(label());
 		if (width > 0 && height > 0) {
-			if (height >= 3 && width >= strlen(label()) + 2) {
+			if (height >= 3 && width >= labelLength + 2) {
 				m_width = width;
 				m_height = height;
 			}
@@ -24,13 +25,14 @@ namespace sdds {
 
 	void Rectangle::getSpecs(istream& is = cin) {
 		LbShape::getSpecs(is);
+		int labelLength = strlen(label());
 		int width;
 		int height;
 		is >> width;
 		is.ignore();
 		is >> height;
 		if (width > 0 && height > 0) {
-			if (height >= 3 && width >= strlen(label()) + 2) {
+			if (height >= 3 && width >= labelLength + 2) {
 				m_width = width;
 				m_height = height;
 			}
