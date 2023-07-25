@@ -114,9 +114,7 @@ namespace sdds {
 			setRef(libref);
 			istr.ignore();
 			istr.getline(shelfId, 5, '\t');
-			for (int i = 0; i < strlen(shelfId); i++) {
-				m_shelfId[i] = shelfId[i];
-			}
+			strcpy(m_shelfId, shelfId);
 			istr.getline(buffer, 100, '\t');
 			m_title = new char[strlen(buffer) + 1];
 			strcpy(m_title, buffer);
@@ -142,9 +140,7 @@ namespace sdds {
 		if (bool(pbl)) {
 			m_title = new char[strlen(pbl.m_title) + 1];
 			strcpy(m_title, pbl.m_title);
-			for (int i = 0; i < strlen(pbl.m_shelfId); i++) {
-				m_shelfId[i] = pbl.m_shelfId[i];
-			}
+			strcpy(m_shelfId, pbl.m_shelfId);
 			set(pbl.m_membership);
 			setRef(pbl.m_libRef);
 			m_date = pbl.m_date;
@@ -160,9 +156,7 @@ namespace sdds {
 				}
 				m_title = new char[strlen(pbl.m_title) + 1];
 				strcpy(m_title, pbl.m_title);
-				for (int i = 0; i < strlen(pbl.m_shelfId); i++) {
-					m_shelfId[i] = pbl.m_shelfId[i];
-				}
+				strcpy(m_shelfId, pbl.m_shelfId);
 				set(pbl.m_membership);
 				setRef(pbl.m_libRef);
 				m_date = pbl.m_date;
