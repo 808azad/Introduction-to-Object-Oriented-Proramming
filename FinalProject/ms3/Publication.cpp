@@ -9,7 +9,7 @@ namespace sdds {
 	Publication::Publication() : m_date() {
 		m_title = nullptr;
 		m_shelfId[0] = '\0';
-		m_membership = -1;
+		m_membership = 0;
 		m_libRef = -1;
 	}
 
@@ -109,7 +109,7 @@ namespace sdds {
 			}
 		}
 		else {
-			int libref;
+			int libref = -1;
 			istr >> libref;
 			setRef(libref);
 			istr.ignore();
@@ -118,7 +118,7 @@ namespace sdds {
 			istr.getline(buffer, 100, '\t');
 			m_title = new char[strlen(buffer) + 1];
 			strcpy(m_title, buffer);
-			int membership;
+			int membership = 0;
 			istr >> membership;
 			set(membership);
 			istr.ignore();
