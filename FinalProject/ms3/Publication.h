@@ -15,8 +15,8 @@ namespace sdds {
 		Date m_date{}; //In periodical publications, this date is used for the publish date of the item, in books, to keep the date on which the book was borrowed by the member.
 	public:
 		Publication();
-		virtual void set(int member_id = 0);
-		void setRef(int value = 0);
+		virtual void set(int member_id);
+		void setRef(int value);
 		void resetDate();
 		virtual char type() const;
 		bool onLoan() const;

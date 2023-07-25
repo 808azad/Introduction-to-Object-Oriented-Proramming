@@ -9,7 +9,7 @@ namespace sdds {
 	Publication::Publication() : m_date() {
 		m_title = nullptr;
 		m_shelfId[0] = '\0';
-		m_membership = 0;
+		m_membership = -1;
 		m_libRef = -1;
 	}
 
