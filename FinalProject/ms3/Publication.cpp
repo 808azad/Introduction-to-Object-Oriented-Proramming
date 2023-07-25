@@ -72,7 +72,7 @@ namespace sdds {
 				else {
 					os << " N/A ";
 				}
-				os << " | " << m_date << " | ";
+				os << " | " << m_date << " |";
 			}
 		}
 		else {
