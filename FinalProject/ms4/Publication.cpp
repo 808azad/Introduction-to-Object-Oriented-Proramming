@@ -1,6 +1,5 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <cstring>
-#include <string>
 #include <iomanip>
 #include "Publication.h"
 using namespace std;
@@ -68,10 +67,11 @@ namespace sdds {
 	}
 
 	ostream& Publication::write(ostream& os) const {
+
 		if (conIO(os)) { // Provide the necessary argument(s) to the conIO() function
 			if (*this) {
 				os << "| " << m_shelfId << " | ";
-				os << setw(SDDS_TITLE_WIDTH) << left << setfill('.') << m_title;
+				os << left << setw(30) << setfill('.') << m_title;
 				os << " | ";
 
 				if (m_membership != 0) {
