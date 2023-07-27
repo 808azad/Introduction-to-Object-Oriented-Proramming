@@ -57,7 +57,7 @@ namespace sdds {
 	Publication::operator const char* () const {
 		return m_title;
 	}
-											//	os << left << setw(30) << setfill('.') << m_title;
+			
 	int Publication::getRef() const {
 		return m_libRef;
 	}
@@ -67,11 +67,18 @@ namespace sdds {
 	}
 
 	ostream& Publication::write(ostream& os) const {
-
-		if (conIO(os)) { // Provide the necessary argument(s) to the conIO() function
+		if (conIO(os)) {//
 			if (*this) {
 				os << "| " << m_shelfId << " | ";
-				os << left << setw(30) << setfill('.') << m_title;
+				const string temp = m_title;
+				string txt;
+				if (temp.length() > SDDS_TITLE_WIDTH) {
+					txt = temp.substr(0, SDDS_TITLE_WIDTH);
+				}
+				else {
+					txt = temp;
+				}
+				os << left << setw(SDDS_TITLE_WIDTH) << setfill('.') << txt;
 				os << " | ";
 
 				if (m_membership != 0) {
