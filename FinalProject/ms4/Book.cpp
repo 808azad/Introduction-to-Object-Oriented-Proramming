@@ -45,7 +45,7 @@ namespace sdds {
 	}
 
 	ostream& Book::write(ostream& os = cout) const {
-		Publication::write(os);
+		Publication::write(os);//
 		if (conIO(os)) {
 			if (*this) {
 				os << " ";  

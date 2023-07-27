@@ -65,7 +65,7 @@ namespace sdds {
 	}
 
 	ostream& Publication::write(ostream& os) const {
-		if (conIO(os)) {
+		if (conIO(os)) {//
 			if (*this) {
 				os << "| " << m_shelfId << " | ";
 				const string temp = m_title;
