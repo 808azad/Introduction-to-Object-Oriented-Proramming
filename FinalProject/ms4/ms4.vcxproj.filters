@@ -24,13 +24,13 @@
     <ClCompile Include="..\ms3\Streamable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\ms3\Utils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Book.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ms4_tester.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -47,10 +47,10 @@
     <ClInclude Include="..\ms3\Streamable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\ms3\Utils.h">
+    <ClInclude Include="Book.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Book.h">
+    <ClInclude Include="Utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -130,17 +130,17 @@
     <ClCompile Include="..\ms3\Date.cpp" />
     <ClCompile Include="..\ms3\Publication.cpp" />
     <ClCompile Include="..\ms3\Streamable.cpp" />
-    <ClCompile Include="..\ms3\Utils.cpp" />
     <ClCompile Include="Book.cpp" />
     <ClCompile Include="ms4_tester.cpp" />
+    <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ms3\Date.h" />
     <ClInclude Include="..\ms3\Lib.h" />
     <ClInclude Include="..\ms3\Publication.h" />
     <ClInclude Include="..\ms3\Streamable.h" />
-    <ClInclude Include="..\ms3\Utils.h" />
     <ClInclude Include="Book.h" />
+    <ClInclude Include="Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

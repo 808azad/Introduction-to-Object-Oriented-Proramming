@@ -1,7 +1,9 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <iomanip>
+#include <string>
 #include <cstring>
 #include "Book.h"
+#include "Utils.h"
 using namespace std;
 
 namespace sdds {
@@ -47,7 +49,15 @@ namespace sdds {
 		if (conIO(os)) {
 			if (*this) {
 				os << " ";  
-				os << setw(SDDS_AUTHOR_WIDTH) << left << setfill(' ') << m_author;
+				const string temp = m_author;
+				string txt;
+				if (temp.length() > SDDS_AUTHOR_WIDTH) {
+					txt = temp.substr(0, SDDS_AUTHOR_WIDTH);
+				}
+				else {
+					txt = temp;
+				}
+				os << left << setw(SDDS_AUTHOR_WIDTH) << setfill(' ') << txt;
 				os << " |";
 			}
 		}
@@ -71,7 +81,7 @@ namespace sdds {
 			is.getline(authorName, 255);
 		}
 		else {
-			is.ignore();
+			is.ignore(1, '\t');
 			is.getline(authorName, 255);
 		}
 		if (!is.fail()) {

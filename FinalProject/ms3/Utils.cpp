@@ -14,6 +14,8 @@
 ***********************************************************************/
 
 #include <iostream>
+#include <iomanip>
+#include <string>
 #include <limits>
 #include "Utils.h"
 using namespace std;
@@ -43,6 +45,17 @@ namespace sdds {
             flushKey();
         }
         return value;
+    }
+
+    static void prnInWidth(int width, const string& text, char paddingChar, ostream& os) {
+        string outputText;
+        if (text.length() > width) {
+            outputText = text.substr(0, width);
+        }
+        else {
+            outputText = text;
+        }
+        os << left << setw(width) << setfill(paddingChar) << outputText;
     }
 
 }

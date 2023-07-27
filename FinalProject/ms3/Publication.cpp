@@ -1,6 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
 #include <cstring>
-#include <string>
 #include <iomanip>
 #include "Publication.h"
 using namespace std;
@@ -15,9 +15,6 @@ namespace sdds {
 	}
 
 	void Publication::set(int member_id) {
-		/*if (member_id == 0 || member_id >= 10000) {
-			m_membership = member_id;
-		}*/
 		if (member_id >= 10000 && member_id <= 99999) {
 			m_membership = member_id;
 		}
@@ -71,7 +68,15 @@ namespace sdds {
 		if (conIO(os)) { // Provide the necessary argument(s) to the conIO() function
 			if (*this) {
 				os << "| " << m_shelfId << " | ";
-				os << setw(SDDS_TITLE_WIDTH) << left << setfill('.') << m_title;
+				const string temp = m_title;
+				string txt;
+				if (temp.length() > SDDS_TITLE_WIDTH) {
+					txt = temp.substr(0, SDDS_TITLE_WIDTH);
+				}
+				else {
+					txt = temp;
+				}
+				os << left << setw(SDDS_TITLE_WIDTH) << setfill('.') << txt;
 				os << " | ";
 
 				if (m_membership != 0) {

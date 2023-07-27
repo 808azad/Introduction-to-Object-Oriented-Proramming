@@ -18,5 +18,6 @@
 namespace sdds {
 	void flushKey();
 	int readInt(int min, int max, const char message[]);
+	static void prnInWidth(int width, const string& text, char paddingChar, ostream& os);
 }
 #endif // SDDS_UTILS_H__
