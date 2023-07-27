@@ -78,11 +78,11 @@ namespace sdds {
 		if (conIO(is)) {
 			is.ignore();
 			cout << "Author: ";
-			is.getline(authorName, 255);
+			is >> authorName;
 		}
 		else {
 			is.ignore(1, '\t');
-			is.getline(authorName, 255);
+			is >> authorName;
 		}
 		if (!is.fail()) {
 			m_author = new char[strlen(authorName) + 1];
