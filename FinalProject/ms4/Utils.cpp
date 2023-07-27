@@ -45,15 +45,4 @@ namespace sdds {
         return value;
     }
 
-    void Utils::prnInWidth(int width, const std::string& text, char paddingChar, std::ostream& os) {
-        std::string outputText;
-        if (text.length() > width) {
-            outputText = text.substr(0, width);
-        }
-        else {
-            outputText = text;
-        }
-        os << std::left << std::setw(width) << std::setfill(paddingChar) << outputText;
-    }
-
 }

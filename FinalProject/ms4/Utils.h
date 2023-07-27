@@ -23,7 +23,6 @@ namespace sdds {
 	public:
 		void flushKey();
 		int readInt(int min, int max, const char message[]);
-		void prnInWidth(int width, const std::string& text, char paddingChar, std::ostream& os);
 	};
 }
 #endif // SDDS_UTILS_H__
