@@ -80,7 +80,7 @@ namespace sdds {
 			cout << "Author: ";
 			is.get(authorName, 255);
 		}
-		else {
+		else { 
 			is.ignore(1, '\t');
 			is.get(authorName, 255);
 		}
