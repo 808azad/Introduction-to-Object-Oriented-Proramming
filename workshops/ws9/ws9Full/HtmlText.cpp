@@ -23,7 +23,7 @@ namespace sdds {
 	}
 
 	HtmlText::operator bool() const {
-		return (m_title != nullptr && m_title[0] != '\0');
+		return (m_title != nullptr && m_title[0] != '\0' && Text::operator bool());
 	}
 
 	HtmlText::HtmlText(const HtmlText& html) : Text(html) {
