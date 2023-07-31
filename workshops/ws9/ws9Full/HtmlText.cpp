@@ -86,7 +86,7 @@ namespace sdds {
 				MS = false;
 				break;
 			case '\n':
-				os << "<br />\n";
+				os << "<br />" << endl;
 				MS = false;
 				break;
 			default:
