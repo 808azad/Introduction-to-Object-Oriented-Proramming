@@ -76,6 +76,21 @@ namespace sdds {
 	}
 
 	void LibApp::newPublication() {
+		cout << "Choose the type of publication:" << endl;
+	    int choice = m_typePublication.run();
+		bool done = false;
+		for (int i = 0; !done && i < (SDDS_LIBRARY_CAPACITY - m_NOLP); i++) {
+			if (m_PPA[i] != nullptr) {
+				if (choice == 1) {
+					m_PPA[i] = new Book;
+					done = true;
+				}
+				else if (choice == 2) {
+					m_PPA[i] = new Publication;
+					done = true;
+				}
+			}
+		}
 		cout << "Adding new publication to library" << endl;
 		if (confirm("Add this publication to library?")) {
 			m_changed = true;
@@ -127,10 +142,16 @@ namespace sdds {
 		load();
 	}
 
-	LibApp::LibApp(const char* filename) {
-		if (filename != nullptr && filename[0] != '\0') {
-			strcpy(m_filename, filename);
+	LibApp::LibApp(const char* filename) :
+		m_mainMenu("Seneca Library Application"),
+		m_exitMenu("Changes have been made to the data, what would you like to do?")
+	{
+		for (int i = 0; i < SDDS_LIBRARY_CAPACITY; i++) {
+			m_PPA[i] = nullptr;
 		}
+		m_changed = false;
+		populateObj();
+		load();
 	}
 
 	LibApp::~LibApp() {
