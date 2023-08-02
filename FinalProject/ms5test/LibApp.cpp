@@ -106,7 +106,7 @@ namespace sdds {
 				}
 				cin.ignore(10000, '\n');
 			}
-			if (confirm("Add this publication to library?")) {
+			if (confirm("Add this publication to the library?")) {
 				m_changed = true;
 				m_PPA[m_NOLP] = p;
 				m_NOLP++;
