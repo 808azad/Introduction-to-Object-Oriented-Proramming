@@ -49,6 +49,7 @@ namespace sdds {
 			}
 			if (m_NOLP > 0) {
 				m_LLRN = m_PPA[m_NOLP - 1] -> getRef();
+				m_LLRN++;
 			}
 		}
 		file.close();
@@ -63,7 +64,7 @@ namespace sdds {
 		else {
 			for (int i = 0; i < m_NOLP; i++) {
 				if (m_PPA[i]->getRef() != 0) {
-					outFile << *m_PPA[i];
+					outFile << *m_PPA[i] << endl;
 				}
 			}
 			outFile.close();
