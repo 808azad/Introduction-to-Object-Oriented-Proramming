@@ -14,7 +14,7 @@ namespace sdds {
 	   char m_filename[256]{};
 	   Publication* m_PPA[SDDS_LIBRARY_CAPACITY]{ nullptr };
 	   Menu m_typePublication{};
-	   int m_NOLP{0};
+	   int m_NOLP{};
 	   int m_LLRN{};
 	   bool confirm(const char* message);
 	   void populateObj();
@@ -26,7 +26,6 @@ namespace sdds {
 	   void removePublication();
 	   void checkOutPub();
    public:
-	   LibApp();
 	   LibApp(const char* filename);
 	   ~LibApp();
 	   void run();

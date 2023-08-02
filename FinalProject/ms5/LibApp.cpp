@@ -19,48 +19,53 @@ namespace sdds {
 	void LibApp::load() {
 		cout << "Loading Data" << endl;
 		ifstream file(m_filename);
-		char pblType{};
-		for (int i = 0; i < m_NOLP; i++) {
-			if (m_PPA[i]) {
-				delete m_PPA[i];
-				m_PPA[i] = nullptr;
-			}
+		if (!file) {
+			cerr << "Could not open a file!" << endl;
 		}
-		m_NOLP = 0;
-		for (int j = 0; file; j++) {
-			file >> pblType;
-			if (file) {
-				if (pblType == 'P') {
-					m_PPA[j] = new Publication;
-				}
-				else if (pblType == 'B') {
-					m_PPA[j] = new Book;
-				}
-				if (m_PPA[j]) {
-					file >> *m_PPA[j];
-					m_NOLP++;
+		else {
+			char pblType{};
+			for (int i = 0; i < m_NOLP; i++) {
+				if (m_PPA[i]) {
+					delete m_PPA[i];
+					m_PPA[i] = nullptr;
 				}
 			}
-		}
-		if (m_NOLP > 0) {
-			m_LLRN = m_PPA[m_NOLP - 1] -> getRef();
+			m_NOLP = 0;
+			for (int j = 0; file; j++) {
+				file >> pblType;
+				if (file) {
+					if (pblType == 'P') {
+						m_PPA[j] = new Publication;
+					}
+					else if (pblType == 'B') {
+						m_PPA[j] = new Book;
+					}
+					if (m_PPA[j]) {
+						file >> *m_PPA[j];
+						m_NOLP++;
+					}
+				}
+			}
+			if (m_NOLP > 0) {
+				m_LLRN = m_PPA[m_NOLP - 1] -> getRef();
+			}
 		}
 	}
 
 	void LibApp::save() {
 		cout << "Saving Data" << endl;
-		ofstream file(m_filename);
-		if (!file) {
-			cerr << "Could not open a file!" << endl;
+		ofstream outFile(m_filename); 
+		if (!outFile) {
+			cout << "Could not open a file!" << endl;
 		}
 		else {
 			for (int i = 0; i < m_NOLP; i++) {
 				if (m_PPA[i]->getRef() != 0) {
-					file << *m_PPA[i];
+					outFile << *m_PPA[i];
 				}
 			}
 		}
-		file.close();
+		outFile.close();
 	}
 
 	void LibApp::search() {
@@ -76,27 +81,40 @@ namespace sdds {
 	}
 
 	void LibApp::newPublication() {
-		cout << "Choose the type of publication:" << endl;
-	    int choice = m_typePublication.run();
-		bool done = false;
-		for (int i = 0; !done && i < (SDDS_LIBRARY_CAPACITY - m_NOLP); i++) {
-			if (m_PPA[i] != nullptr) {
-				if (choice == 1) {
-					m_PPA[i] = new Book;
-					done = true;
-				}
-				else if (choice == 2) {
-					m_PPA[i] = new Publication;
-					done = true;
-				}
+		if (m_NOLP < SDDS_LIBRARY_CAPACITY) {
+			cout << "Adding new publication to library" << endl;
+			cout << "Choose the type of publication:" << endl;
+			int choice = m_typePublication.run();
+			Publication* p{ nullptr };
+			if (choice == 1) {
+				p = new Book;
 			}
+			else if(choice == 2){
+				p = new Publication;
+			}
+			if (p) {
+				cin >> *p;
+				if (cin.fail()) {
+					cin.clear();
+					cin.ignore(10000, '\n');
+					delete p;
+				}
+				cin.ignore(10000, '\n');
+			}
+			if (confirm("Add this publication to library?")) {
+				m_changed = true;
+				m_PPA[m_NOLP] = p;
+				m_NOLP++;
+				cout << "Publication added" << endl;
+			}
+			else {
+				delete p;
+			}
+			cout << endl;
 		}
-		cout << "Adding new publication to library" << endl;
-		if (confirm("Add this publication to library?")) {
-			m_changed = true;
-			cout << "Publication added" << endl;
+		else {
+			cout << "The library is full!" << endl;
 		}
-		cout << endl;
 	}
 
 	void LibApp::removePublication() {
@@ -130,22 +148,13 @@ namespace sdds {
 		m_typePublication << "Publication";
 	}
 
-	LibApp::LibApp() : 
-		m_mainMenu("Seneca Library Application"),
-		m_exitMenu("Changes have been made to the data, what would you like to do?") 
-	{
-		for (int i = 0; i < SDDS_LIBRARY_CAPACITY; i++) {
-			m_PPA[i] = nullptr;
-		}
-		m_changed = false;
-		populateObj();
-		load();
-	}
-
 	LibApp::LibApp(const char* filename) :
 		m_mainMenu("Seneca Library Application"),
 		m_exitMenu("Changes have been made to the data, what would you like to do?")
 	{
+		if (filename != nullptr && filename[0] != '\0') {
+			strcpy(m_filename, filename);
+		}
 		for (int i = 0; i < SDDS_LIBRARY_CAPACITY; i++) {
 			m_PPA[i] = nullptr;
 		}
