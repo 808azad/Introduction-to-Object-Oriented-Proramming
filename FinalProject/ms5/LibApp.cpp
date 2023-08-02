@@ -105,6 +105,7 @@ namespace sdds {
 				m_changed = true;
 				m_PPA[m_NOLP] = p;
 				m_NOLP++;
+				delete p;
 				cout << "Publication added" << endl;
 			}
 			else {
