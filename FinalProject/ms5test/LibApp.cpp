@@ -63,6 +63,9 @@ namespace sdds {
 		else {
 			for (int i = 0; i < m_NOLP; i++) {
 				if (m_PPA[i]->getRef() != 0) {
+					if (m_PPA[i]->getRef() == -1) {
+						m_PPA[i]->setRef(m_LLRN);
+					}
 					outFile << *m_PPA[i] << endl;
 				}
 			}

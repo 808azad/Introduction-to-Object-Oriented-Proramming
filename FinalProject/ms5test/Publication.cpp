@@ -91,14 +91,13 @@ namespace sdds {
 			}
 		}
 		else {
-			os << type() << "\t";
-			os << "\t" << m_libRef << "\t" << m_shelfId << "\t" << m_title << "\t";
-			if (onLoan()) {
-				os << m_membership << "\t";
+			os << type();
+			os << "\t";
+			if (m_libRef != -1) {
+				os << m_libRef; 
 			}
-			else {
-				os << " N/A " << '\t';
-			}
+			os << "\t" << m_shelfId << "\t" << m_title << "\t";
+			os << m_membership << "\t";
 			os << m_date;
 		}
 		return os;
