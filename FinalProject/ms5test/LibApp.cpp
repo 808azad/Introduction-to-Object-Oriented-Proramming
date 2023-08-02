@@ -18,7 +18,6 @@ namespace sdds {
 
 	void LibApp::load() {
 		cout << "Loading Data" << endl;
-		cout << m_filename << endl;
 		ifstream file(m_filename);
 		if (!file) {
 			cerr << "Could not open a file!" << endl;
