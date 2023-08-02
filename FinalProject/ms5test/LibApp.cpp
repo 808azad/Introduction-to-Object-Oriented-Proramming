@@ -84,7 +84,7 @@ namespace sdds {
 
 	void LibApp::newPublication() {
 		if (m_NOLP < SDDS_LIBRARY_CAPACITY) {
-			cout << "Adding new publication to library" << endl;
+			cout << "Adding new publication to the library" << endl;
 			cout << "Choose the type of publication:" << endl;
 			int choice = m_typePublication.run();
 			Publication* p{ nullptr };
