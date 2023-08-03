@@ -18,7 +18,6 @@ namespace sdds {
 
 	void LibApp::load() {
 		cout << "Loading Data" << endl;
-		cout << m_filename << endl;
 		ifstream file(m_filename);
 		if (!file) {
 			cerr << "Could not open a file!" << endl;
@@ -49,6 +48,7 @@ namespace sdds {
 			}
 			if (m_NOLP > 0) {
 				m_LLRN = m_PPA[m_NOLP - 1] -> getRef();
+				m_LLRN++;
 			}
 		}
 		file.close();
@@ -63,7 +63,11 @@ namespace sdds {
 		else {
 			for (int i = 0; i < m_NOLP; i++) {
 				if (m_PPA[i]->getRef() != 0) {
-					outFile << *m_PPA[i];
+					if (m_PPA[i]->getRef() == -1) {
+						m_PPA[i]->setRef(m_LLRN);
+						m_LLRN++;
+					}
+					outFile << *m_PPA[i] << endl;
 				}
 			}
 			outFile.close();
@@ -84,7 +88,7 @@ namespace sdds {
 
 	void LibApp::newPublication() {
 		if (m_NOLP < SDDS_LIBRARY_CAPACITY) {
-			cout << "Adding new publication to library" << endl;
+			cout << "Adding new publication to the library" << endl;
 			cout << "Choose the type of publication:" << endl;
 			int choice = m_typePublication.run();
 			Publication* p{ nullptr };
@@ -102,7 +106,7 @@ namespace sdds {
 				}
 				cin.ignore(10000, '\n');
 			}
-			if (confirm("Add this publication to library?")) {
+			if (confirm("Add this publication to the library?")) {
 				m_changed = true;
 				m_PPA[m_NOLP] = p;
 				m_NOLP++;
