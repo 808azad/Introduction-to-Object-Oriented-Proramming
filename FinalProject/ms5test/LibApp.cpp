@@ -89,8 +89,8 @@ namespace sdds {
 			cout << "-------------------------------------------------------" << endl;
 		}
 		else {
-			if (choice == 1) book;
-			else if (choice == 2) publication;
+			if (choice == 1) book = 'B';
+			else if (choice == 2) publication = 'P';
 			cout << "Publication Title: ";
 			cin.get(buffer, 255);
 			cin.ignore(10000, '\n');
