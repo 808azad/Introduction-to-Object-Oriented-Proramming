@@ -183,7 +183,7 @@ namespace sdds {
 	}
 
 	void LibApp::removePublication() {
-		cout << "Removing Publication from the library" << endl;
+		cout << "Removing publication from the library" << endl;
 		ostream& os = cout;
 		PublicationSelector* pblSelect = search(0);
 		Publication* pbl{ nullptr };
