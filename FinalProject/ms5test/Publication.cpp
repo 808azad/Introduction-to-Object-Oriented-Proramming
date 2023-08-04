@@ -57,6 +57,10 @@ namespace sdds {
 	Publication::operator const char* () const {
 		return m_title;
 	}
+
+	char* Publication::getTitle() const {
+		return m_title;
+	}
 			
 	int Publication::getRef() const {
 		return m_libRef;

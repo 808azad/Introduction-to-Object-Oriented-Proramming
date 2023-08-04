@@ -24,6 +24,7 @@ namespace sdds {
 		bool operator==(const char* title) const;
 		operator const char* () const;
 		int getRef() const;
+		char* getTitle() const;
 		bool conIO(std::ios& io) const;
 		std::ostream& write(std::ostream& os) const;
 		std::istream& read(std::istream& istr);

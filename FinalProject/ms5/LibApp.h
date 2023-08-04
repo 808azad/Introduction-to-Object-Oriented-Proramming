@@ -2,6 +2,7 @@
 #define SDDS_LIBAPP_H
 
 #include "Menu.h"
+#include "PublicationSelector.h"
 #include "Publication.h"
 #include "Book.h"
 #include "Lib.h"
@@ -20,7 +21,8 @@ namespace sdds {
 	   void populateObj();
 	   void load();
 	   void save();
-	   void search();
+	   PublicationSelector* search(int mode);
+	   Publication* getPub(int libRef);
 	   void returnPub();
 	   void newPublication();
 	   void removePublication();

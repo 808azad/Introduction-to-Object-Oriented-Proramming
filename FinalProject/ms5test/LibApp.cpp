@@ -74,12 +74,60 @@ namespace sdds {
 		}
 	}
 
-	void LibApp::search() {
-		cout << "Searching for publication" << endl;
+	PublicationSelector* LibApp::search(int mode) {
+		PublicationSelector* pblSelectorBook{ nullptr };
+		PublicationSelector* pblSelectorPublication{ nullptr };
+		pblSelectorBook = new PublicationSelector("Select one of the following found matches:");
+		pblSelectorPublication = new PublicationSelector("Select one of the following found matches:");
+		char buffer[256]{};
+		cout << "Choose the type of publication:" << endl;
+		int choice = m_typePublication.run();
+		char book = 'B';
+		char publication = 'P';
+		if (choice == 0) {
+			cout << "Aborted!" << endl;
+			cout << "-------------------------------------------------------" << endl;
+		}
+		else {
+			if (choice == 1) book;
+			else if (choice == 2) publication;
+			cout << "Publication Title: ";
+			cin.get(buffer, 255);
+			cin.ignore(10000, '\n');
+			for (int i = 0; i < m_NOLP; i++) {
+				bool equal = strstr(m_PPA[i]->getTitle(), buffer) != nullptr;
+				if (m_PPA[i]->getRef() != 0) {
+					if (m_PPA[i]->type() == book) {
+						if (equal) {
+							if ((mode == 0) || (mode == 1 && m_PPA[i]->onLoan()) || (mode == 2 && !m_PPA[i]->onLoan())) {
+								*pblSelectorBook << m_PPA[i];
+							}
+						}
+					}
+					else if (m_PPA[i]->type() == publication) {
+						if (equal) {
+							if ((mode == 0) || (mode == 1 && m_PPA[i]->onLoan()) || (mode == 2 && !m_PPA[i]->onLoan())) {
+								*pblSelectorPublication << m_PPA[i];
+							}
+						}
+					}
+				}
+			}
+			if (pblSelectorBook) {
+				pblSelectorBook->sort();
+			}
+		    if (pblSelectorPublication) {
+				pblSelectorPublication->sort();
+			}
+			else {
+				cout << "No matches found" << endl;
+			}
+		}
+		return (choice == 1) ? pblSelectorBook : pblSelectorPublication;
 	}
 
 	void LibApp::returnPub() {
-		search();
+		search(0);
 		cout << "Returning publication" << endl;
 		cout << "Publication returned" << endl;
 		cout << endl;
@@ -95,7 +143,7 @@ namespace sdds {
 			if (choice == 1) {
 				p = new Book;
 			}
-			else if(choice == 2){
+			else if (choice == 2) {
 				p = new Publication;
 			}
 			if (p) {
@@ -116,25 +164,44 @@ namespace sdds {
 				delete p;
 			}
 			cout << endl;
+			
 		}
 		else {
 			cout << "The library is full!" << endl;
 		}
 	}
 
+	Publication* LibApp::getPub(int getRef) {
+		int i{};
+		bool done = false;
+		for (i = 0; !done && i < m_NOLP; i++) {
+			if (m_PPA[i]->getRef() == getRef) {
+				done = true;
+			}
+		}
+		return m_PPA[i - 1];
+	}
+
 	void LibApp::removePublication() {
-		cout << "Removing publication from library" << endl;
-		search();
-		if (confirm("Remove this publication from the library?")) {
-			m_changed = true;
-			cout << "Publication removed" << endl;
+		ostream& os = cout;
+		PublicationSelector* pblSelect = search(0);
+		Publication* pbl{ nullptr };
+		cout << "Removing Publication from the library" << endl;
+		int choice = pblSelect->run();
+		if (choice > 0) {
+			pbl = getPub(choice);
+			pbl->write(os) << endl;
+   			if (confirm("Remove this publication from the library?")) {
+				pbl->setRef(0);
+				m_changed = true;
+				cout << "Publication removed" << endl;
+			}
 		}
 		cout << endl;
-		
 	}
 
 	void LibApp::checkOutPub() {
-		search();
+		search(0);
 		if (confirm("Check out publication?")) {
 			m_changed = true;
 			cout << "Publication checked out" << endl;
