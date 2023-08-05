@@ -180,18 +180,20 @@ namespace sdds {
 		ostream& os = cout;
 		PublicationSelector* pblSelect = search(0);
 		Publication* pbl{ nullptr };
-		int choice = pblSelect->run();
-		if (choice > 0) {
-			pbl = getPub(choice);
-			pbl->write(os) << endl;
-   			if (confirm("Remove this publication from the library?")) {
-				pbl->setRef(0);
-				m_changed = true;
-				cout << "Publication removed" << endl;
+		if (pblSelect) {
+			int choice = pblSelect->run();
+			if (choice > 0) {
+				pbl = getPub(choice);
+				pbl->write(os) << endl;
+   				if (confirm("Remove this publication from the library?")) {
+					pbl->setRef(0);
+					m_changed = true;
+					cout << "Publication removed" << endl;
+				}
 			}
+			delete pblSelect;
 		}
 		cout << endl;
-		delete pblSelect;
 	}
 
 	void LibApp::checkOutPub() {
