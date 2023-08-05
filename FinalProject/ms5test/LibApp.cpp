@@ -165,6 +165,7 @@ namespace sdds {
 		}
 		else {
 			cout << "Library is at its maximum capacity!" << endl;
+			cout << endl;
 		}
 	}
 
