@@ -75,57 +75,47 @@ namespace sdds {
 	}
 
 	PublicationSelector* LibApp::search(int mode) {
-		PublicationSelector* pblSelectorBook{ nullptr };
-		PublicationSelector* pblSelectorPublication{ nullptr };
-		pblSelectorBook = new PublicationSelector("Select one of the following found matches:");
-		pblSelectorPublication = new PublicationSelector("Select one of the following found matches:");
+		PublicationSelector* pblSelector{ nullptr };
+		//PublicationSelector* pblSelectorPublication{ nullptr };
+		pblSelector = new PublicationSelector("Select one of the following found matches:");
+		//pblSelectorPublication = new PublicationSelector("Select one of the following found matches:");
 		char buffer[256]{};
 		cout << "Choose the type of publication:" << endl;
 		int choice = m_typePublication.run();
-		char book = 'B';
-		char publication = 'P';
+		char type{};
 		if (choice == 0) {
 			cout << "Aborted!" << endl;
 			cout << "-------------------------------------------------------" << endl;
 		}
 		else {
-			if (choice == 1) book = 'B';
-			else if (choice == 2) publication = 'P';
+			if (choice == 1) type = 'B';
+			else if (choice == 2) type = 'P';
 			cout << "Publication Title: ";
 			cin.get(buffer, 255);
 			cin.ignore(10000, '\n');
 			for (int i = 0; i < m_NOLP; i++) {
 				bool equal = strstr(m_PPA[i]->getTitle(), buffer) != nullptr;
 				if (m_PPA[i]->getRef() != 0) {
-					if (m_PPA[i]->type() == book) {
+					if (m_PPA[i]->type() == type) {
 						if (equal) {
 							if ((mode == 0) || (mode == 1 && m_PPA[i]->onLoan()) || (mode == 2 && !m_PPA[i]->onLoan())) {
-								*pblSelectorBook << m_PPA[i];
-							}
-						}
-					}
-					else if (m_PPA[i]->type() == publication) {
-						if (equal) {
-							if ((mode == 0) || (mode == 1 && m_PPA[i]->onLoan()) || (mode == 2 && !m_PPA[i]->onLoan())) {
-								*pblSelectorPublication << m_PPA[i];
+								*pblSelector << m_PPA[i];
 							}
 						}
 					}
 				}
 			}
-			if (pblSelectorBook) {
-				pblSelectorBook->sort();
+			if (pblSelector) {
+				pblSelector->sort();
 			}
-		    if (pblSelectorPublication) {
+		    /*if (pblSelectorPublication) {
 				pblSelectorPublication->sort();
-			}
+			}*/
 			else {
 				cout << "No matches found" << endl;
 			}
-			delete pblSelectorBook;
-			delete pblSelectorPublication;
 		}
-		return (choice == 1) ? pblSelectorBook : pblSelectorPublication;
+		return pblSelector;
 	}
 
 	void LibApp::returnPub() {
