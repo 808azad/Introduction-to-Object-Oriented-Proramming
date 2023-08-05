@@ -75,7 +75,6 @@ namespace sdds {
 	}
 
 	PublicationSelector* LibApp::search(int mode) {
-		PublicationSelector* pblSelector{ nullptr };
 		PublicationSelector* pblSelectorBook{ nullptr };
 		PublicationSelector* pblSelectorPublication{ nullptr };
 		pblSelectorBook = new PublicationSelector("Select one of the following found matches:");
@@ -120,22 +119,13 @@ namespace sdds {
 		    if (pblSelectorPublication) {
 				pblSelectorPublication->sort();
 			}
-			if (choice == 1) {
-				pblSelector = pblSelectorBook;
-				delete pblSelectorBook;
-				delete pblSelectorPublication;
-			}
-			else if (choice == 2) {
-				pblSelector = pblSelectorPublication;
-				delete pblSelectorBook;
-				delete pblSelectorPublication;
-			}
 			else {
 				cout << "No matches found" << endl;
 			}
+			delete pblSelectorBook;
+			delete pblSelectorPublication;
 		}
-		return pblSelector;
-		//return (choice == 1) ? pblSelectorBook : pblSelectorPublication;
+		return (choice == 1) ? pblSelectorBook : pblSelectorPublication;
 	}
 
 	void LibApp::returnPub() {
