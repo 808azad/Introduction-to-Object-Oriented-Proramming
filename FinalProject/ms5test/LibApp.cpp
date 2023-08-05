@@ -1,5 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <cstring>
+#include <iomanip>
 #include <fstream>
 #include "LibApp.h"
 using namespace std;
@@ -121,13 +122,6 @@ namespace sdds {
 		return pblSelector;
 	}
 
-	void LibApp::returnPub() {
-		search(0);
-		cout << "Returning publication" << endl;
-		cout << "Publication returned" << endl;
-		cout << endl;
-		m_changed = true;
-	}
 
 	void LibApp::newPublication() {
 		if (m_NOLP < SDDS_LIBRARY_CAPACITY) {
@@ -159,7 +153,6 @@ namespace sdds {
 				cout << "Failed to add publication!" << endl;
 				delete p;
 			}
-			m_NOLP = SDDS_LIBRARY_CAPACITY;
 			cout << endl;
 			
 		}
@@ -168,6 +161,7 @@ namespace sdds {
 			cout << endl;
 		}
 	}
+
 
 	Publication* LibApp::getPub(int getRef) {
 		int i{};
@@ -178,6 +172,36 @@ namespace sdds {
 			}
 		}
 		return m_PPA[i - 1];
+	}
+
+	void LibApp::returnPub() {
+		cout << "Return publication to the library" << endl;
+		Publication* currentDate{ nullptr };
+		ostream& os = cout;
+		PublicationSelector* pblSelect = search(1);
+		Publication* pbl{ nullptr };
+		if (pblSelect) {
+			int choice = pblSelect->run();
+			if (choice > 0) {
+				pbl = getPub(choice);
+				pbl->write(os) << endl;
+				if (confirm("Return Publication?")) {
+					int i;
+					for (i = 0; i < m_NOLP; i++);
+					m_PPA[i - 1]->resetDate(); //gettin existing date of one of the elements of m_PPA array in order to reset the it to the current one 
+					int onLoanDate = m_PPA[i - 1]->checkoutDate() - pbl->checkoutDate();
+					if (onLoanDate > 15) {
+						double penaltyAmount = onLoanDate * 0.5;
+						cout << "Please pay $" << fixed << setprecision(2) << penaltyAmount << " penalty for being " << onLoanDate << " days late" << endl;
+					}
+					pbl->set(0);
+					m_changed = true;
+					cout << "Publication returned" << endl;
+				}
+			}
+			delete pblSelect;
+		}
+		cout << endl;
 	}
 
 	void LibApp::removePublication() {
