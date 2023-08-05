@@ -150,19 +150,21 @@ namespace sdds {
 				cin.ignore(10000, '\n');
 			}
 			if (confirm("Add this publication to the library?")) {
-				m_changed = true;
 				m_PPA[m_NOLP] = p;
 				m_NOLP++;
+				m_changed = true;
 				cout << "Publication added" << endl;
 			}
 			else {
+				cout << "Failed to add publication!" << endl;
 				delete p;
 			}
+			m_NOLP = SDDS_LIBRARY_CAPACITY;
 			cout << endl;
 			
 		}
 		else {
-			cout << "The library is full!" << endl;
+			cout << "Library is at its maximum capacity!" << endl;
 		}
 	}
 
