@@ -108,6 +108,8 @@ namespace sdds {
 			}
 			if (!done) {
 				cout << "No matches found!" << endl;
+				delete pblSelector;
+				pblSelector = nullptr;
 
 			}
 			else {
@@ -116,7 +118,7 @@ namespace sdds {
 				}
 			}
 		}
-		return (done) ? pblSelector : nullptr;
+		return pblSelector;
 	}
 
 	void LibApp::returnPub() {
