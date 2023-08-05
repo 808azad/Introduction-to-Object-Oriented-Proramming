@@ -176,7 +176,6 @@ namespace sdds {
 
 	void LibApp::returnPub() {
 		cout << "Return publication to the library" << endl;
-		Publication* currentDate{ nullptr };
 		ostream& os = cout;
 		PublicationSelector* pblSelect = search(1);
 		Publication* pbl{ nullptr };
