@@ -76,9 +76,7 @@ namespace sdds {
 
 	PublicationSelector* LibApp::search(int mode) {
 		PublicationSelector* pblSelector{ nullptr };
-		//PublicationSelector* pblSelectorPublication{ nullptr };
 		pblSelector = new PublicationSelector("Select one of the following found matches:");
-		//pblSelectorPublication = new PublicationSelector("Select one of the following found matches:");
 		char buffer[256]{};
 		cout << "Choose the type of publication:" << endl;
 		int choice = m_typePublication.run();
@@ -108,9 +106,6 @@ namespace sdds {
 			if (pblSelector) {
 				pblSelector->sort();
 			}
-		    /*if (pblSelectorPublication) {
-				pblSelectorPublication->sort();
-			}*/
 			else {
 				cout << "No matches found" << endl;
 			}
