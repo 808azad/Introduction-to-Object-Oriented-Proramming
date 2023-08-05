@@ -6,6 +6,7 @@ using namespace std;
 
 namespace sdds {
 
+
 	bool LibApp::confirm(const char* message) {
 		int res = 0;
 		if (message != nullptr && message[0] != '\0') {
@@ -78,6 +79,7 @@ namespace sdds {
 		PublicationSelector* pblSelector{ nullptr };
 		pblSelector = new PublicationSelector("Select one of the following found matches:");
 		char buffer[256]{};
+		bool done = false;
 		cout << "Choose the type of publication:" << endl;
 		int choice = m_typePublication.run();
 		char type{};
@@ -98,19 +100,23 @@ namespace sdds {
 						if (equal) {
 							if ((mode == 0) || (mode == 1 && m_PPA[i]->onLoan()) || (mode == 2 && !m_PPA[i]->onLoan())) {
 								*pblSelector << m_PPA[i];
+								done = true;
 							}
-						}
+						}	
 					}
 				}
 			}
-			if (pblSelector) {
-				pblSelector->sort();
+			if (!done) {
+				cout << "No matches found!" << endl;
+
 			}
 			else {
-				cout << "No matches found" << endl;
+				if (pblSelector) {
+					pblSelector->sort();
+				}
 			}
 		}
-		return pblSelector;
+		return (done) ? pblSelector : nullptr;
 	}
 
 	void LibApp::returnPub() {
@@ -189,10 +195,24 @@ namespace sdds {
 	}
 
 	void LibApp::checkOutPub() {
-		search(0);
-		if (confirm("Check out publication?")) {
-			m_changed = true;
-			cout << "Publication checked out" << endl;
+		cout << "Checkout publication from the library" << endl;
+		ostream& os = cout;
+		PublicationSelector* pblSelect = search(2);
+		Publication* pbl{ nullptr };
+		if (pblSelect) {
+			int choice = pblSelect->run();
+			if (choice > 0) {
+				pbl = getPub(choice);
+				pbl->write(os) << endl;
+				if (confirm("Check out publication?")) {
+					cout << "Enter membership number: ";
+					int membership = util.readInt(10000, 99999, "Invalid membership, try again: ");
+					pbl->set(membership);
+					m_changed = true;
+					cout << "Publication checked out" << endl;
+				}
+			}
+			delete pblSelect;
 		}
 		cout << endl;
 	}

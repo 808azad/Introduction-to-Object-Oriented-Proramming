@@ -32,6 +32,7 @@ namespace sdds {
 	   ~LibApp();
 	   void run();
    };
+
 }
 #endif // !SDDS_LIBAPP_H
 

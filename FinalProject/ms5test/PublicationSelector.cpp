@@ -85,6 +85,8 @@ namespace sdds {
       } while (!ok && cout << "Invalid selection, retry" << endl << "> ");
       return retVal;
    }
+    
+
    PublicationSelector::~PublicationSelector() {
       delete[] m_pub;
    }

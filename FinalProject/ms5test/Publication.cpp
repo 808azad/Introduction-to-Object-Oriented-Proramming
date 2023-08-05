@@ -14,9 +14,6 @@ namespace sdds {
 	}
 
 	void Publication::set(int member_id) {
-		/*if (member_id == 0 || member_id >= 10000) {
-			m_membership = member_id;
-		}*/
 		if (member_id >= 10000 && member_id <= 99999) {
 			m_membership = member_id;
 		}
