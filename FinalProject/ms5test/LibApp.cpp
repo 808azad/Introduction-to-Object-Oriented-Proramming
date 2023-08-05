@@ -198,6 +198,7 @@ namespace sdds {
 			}
 		}
 		cout << endl;
+		delete pblSelect;
 	}
 
 	void LibApp::checkOutPub() {
