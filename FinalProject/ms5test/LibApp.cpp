@@ -185,10 +185,7 @@ namespace sdds {
 				pbl = getPub(choice);
 				pbl->write(os) << endl;
 				if (confirm("Return Publication?")) {
-					int i;
-					for (i = 0; i < m_NOLP; i++);
-					m_PPA[i - 1]->resetDate(); //gettin existing date of one of the elements of m_PPA array in order to reset the it to the current one 
-					int onLoanDate = m_PPA[i - 1]->checkoutDate() - pbl->checkoutDate();
+					int onLoanDate = Date() - pbl->checkoutDate();
 					if (onLoanDate > SDDS_MAX_LOAN_DAYS) {
 						double penaltyAmount = (onLoanDate - SDDS_MAX_LOAN_DAYS) * 0.5;
 						cout << "Please pay $" << fixed << setprecision(2) << penaltyAmount << " penalty for being " << onLoanDate - SDDS_MAX_LOAN_DAYS << " days late!" << endl;
