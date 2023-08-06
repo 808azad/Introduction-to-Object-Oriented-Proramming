@@ -191,7 +191,7 @@ namespace sdds {
 					int onLoanDate = m_PPA[i - 1]->checkoutDate() - pbl->checkoutDate();
 					if (onLoanDate > SDDS_MAX_LOAN_DAYS) {
 						double penaltyAmount = (onLoanDate - SDDS_MAX_LOAN_DAYS) * 0.5;
-						cout << "Please pay $" << fixed << setprecision(2) << penaltyAmount << " penalty for being " << onLoanDate - SDDS_MAX_LOAN_DAYS << " days late" << endl;
+						cout << "Please pay $" << fixed << setprecision(2) << penaltyAmount << " penalty for being " << onLoanDate - SDDS_MAX_LOAN_DAYS << " days late!" << endl;
 					}
 					pbl->set(0);
 					m_changed = true;
