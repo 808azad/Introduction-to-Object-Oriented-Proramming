@@ -189,9 +189,9 @@ namespace sdds {
 					for (i = 0; i < m_NOLP; i++);
 					m_PPA[i - 1]->resetDate(); //gettin existing date of one of the elements of m_PPA array in order to reset the it to the current one 
 					int onLoanDate = m_PPA[i - 1]->checkoutDate() - pbl->checkoutDate();
-					if (onLoanDate > 15) {
-						double penaltyAmount = onLoanDate * 0.5;
-						cout << "Please pay $" << fixed << setprecision(2) << penaltyAmount << " penalty for being " << onLoanDate << " days late" << endl;
+					if (onLoanDate > SDDS_MAX_LOAN_DAYS) {
+						double penaltyAmount = (onLoanDate - SDDS_MAX_LOAN_DAYS) * 0.5;
+						cout << "Please pay $" << fixed << setprecision(2) << penaltyAmount << " penalty for being " << onLoanDate - SDDS_MAX_LOAN_DAYS << " days late" << endl;
 					}
 					pbl->set(0);
 					m_changed = true;
