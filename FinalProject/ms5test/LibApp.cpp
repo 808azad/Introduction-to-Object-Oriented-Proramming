@@ -86,7 +86,6 @@ namespace sdds {
 		char type{};
 		if (choice == 0) {
 			cout << "Aborted!" << endl;
-			cout << "-------------------------------------------------------" << endl;
 		}
 		else {
 			if (choice == 1) type = 'B';
@@ -128,33 +127,37 @@ namespace sdds {
 			cout << "Adding new publication to the library" << endl;
 			cout << "Choose the type of publication:" << endl;
 			int choice = m_typePublication.run();
-			Publication* p{ nullptr };
-			if (choice == 1) {
-				p = new Book;
-			}
-			else if (choice == 2) {
-				p = new Publication;
-			}
-			if (p) {
-				cin >> *p;
-				if (cin.fail()) {
-					cin.clear();
-					cin.ignore(10000, '\n');
-				}
-				cin.ignore(10000, '\n');
-			}
-			if (confirm("Add this publication to the library?")) {
-				m_PPA[m_NOLP] = p;
-				m_NOLP++;
-				m_changed = true;
-				cout << "Publication added" << endl;
+			if (choice == 0) {
+				cout << "Aborted!" << endl << endl;
 			}
 			else {
-				cout << "Failed to add publication!" << endl;
-				delete p;
+				Publication* p{ nullptr };
+				if (choice == 1) {
+					p = new Book;
+				}
+				else if (choice == 2) {
+					p = new Publication;
+				}
+				if (p) {
+					cin >> *p;
+					if (cin.fail()) {
+						cin.clear();
+						cin.ignore(10000, '\n');
+					}
+					cin.ignore(10000, '\n');
+				}
+				if (confirm("Add this publication to the library?")) {
+					m_PPA[m_NOLP] = p;
+					m_NOLP++;
+					m_changed = true;
+					cout << "Publication added" << endl;
+				}
+				else {
+					cout << "Failed to add publication!" << endl;
+					delete p;
+				}
+				cout << endl;
 			}
-			cout << endl;
-			
 		}
 		else {
 			cout << "Library is at its maximum capacity!" << endl;
@@ -207,13 +210,18 @@ namespace sdds {
 		Publication* pbl{ nullptr };
 		if (pblSelect) {
 			int choice = pblSelect->run();
-			if (choice > 0) {
-				pbl = getPub(choice);
-				pbl->write(os) << endl;
-   				if (confirm("Remove this publication from the library?")) {
-					pbl->setRef(0);
-					m_changed = true;
-					cout << "Publication removed" << endl;
+			if (choice == 'X') {
+				cout << "Aborted!" << endl;
+			}
+			else {
+				if (choice > 0) {
+					pbl = getPub(choice);
+					pbl->write(os) << endl;
+   					if (confirm("Remove this publication from the library?")) {
+						pbl->setRef(0);
+						m_changed = true;
+						cout << "Publication removed" << endl;
+					}
 				}
 			}
 			delete pblSelect;
