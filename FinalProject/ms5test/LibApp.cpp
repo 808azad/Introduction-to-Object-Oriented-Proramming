@@ -241,7 +241,7 @@ namespace sdds {
 				pbl->write(os) << endl;
 				if (confirm("Check out publication?")) {
 					cout << "Enter Membership number: ";
-					int membership = util.readInt(10000, 99999, "Invalid membership, try again: ");
+					int membership = util.readInt(10000, 99999, "Invalid membership number, try again: ");
 					pbl->set(membership);
 					m_changed = true;
 					cout << "Publication checked out" << endl;
