@@ -1,0 +1,43 @@
+For the accomplishment of Workshop 10, another essential topic of Object-Oriented Programming was covered. This time, we were introduced to the concept of 'Parametric Polymorphism.' What is that? 'Parametric Polymorphism' is known as a paradigm that allows us to create code regardless of any type. By using it, we can create single functions, classes, and data structures for variables and objects with various types. 'Parametric Polymorphism' is quite a useful concept because it reduces the lines of code, allows us to be more flexible within the program, and increases the convenience of the workflow. The way of implementing this concept is using template functions and classes.
+
+Let's take an example from Workshop 10 itself:
+
+ /* In order to make this template function work properly, first of all, a boolean variable with the value of "false" must be declared.
+	* Then, in a loop that runs up to the number of element in the array, each element of the array of any type must be compared to a search value of any type
+	* if there is at least one match, the element of the array is added to the Collection object of any type and boolean value is changed to "true"
+	* At the end, the boolean value must be returned */
+	template <typename T, typename Z>
+	bool search(Collection<T>& obj, const T arr[], int noOfElements, const Z searchValue) {
+		bool res = false;
+		for (int i = 0; i < noOfElements; i++) {
+			if (arr[i] == searchValue) {
+				obj.add(arr[i]);
+				res = true;
+			}
+		}
+		return res;
+	}
+
+
+	/* In order to make this template function work properly, first of all, a value of passed title argument must be checked for containing null pointer anb a null value.
+	* if the title is valid, it will print it
+	* Then, in a loop that runs up to the number of elements in the array of any type, the elements of the array must be displayed to the console one by one in a newline*/
+	template <typename T>
+	void listArrayElements(const char* title, const T arr[], int noOfElements) {
+		if (title != nullptr && title[0] != '\0') {
+			cout << title << endl;
+		}
+		for (int i = 0; i < noOfElements; i++) {
+			cout << (i + 1) << ": " << arr[i] << endl;
+		}
+	}
+
+As we can see, there are two functions that perform operations on any type. The first function called "search" receives 4 arguments: a reference object of the Collection class of any type, a constant array of any type, the size of the array, and the search value of any type. Using these arguments, it will compare the elements of the array of any type against the search value of any type, and if there is a match, it will store the elements of the array in the Collection object of any type, set the boolean to true, and return it.
+
+The second function called "listArrayElements" receives 3 arguments: a constant character title, a constant array of any type, and the size of the array. First, it will check if the title is valid, then it will proceed to the loop that loops through the elements of the array with the given size and display them one by one in formatted form.
+
+There were no issues faced during the completion process of Workshop 10. Everything was smooth and straightforward.
+
+When it comes to the milestones of the final project, everything became much more complicated. In Milestone 3, where we had to create the Streamable Interface module and the Publication class module, I faced a quite confusing and microscopic issue that took a lot of time to identify. The issue was the following: the publication entered by the user did not show up in a text file at the end. However, it was successfully read through the console and displayed on it. After careful consideration, I identified that the issue lay in the formatting of the write function. I had to display the reference number on a single line, then break the ostream and display other member variables on another line. The issue was not solved on Visual Studio, but it was on Matrix, and I was able to successfully submit Milestone 3. In Milestone 4, where we had to create a Book module, I faced issues related to properly formatting the input in the write function and reading the input in the read function. For some reason, my input was read improperly when I used "istr >>" and "istr.getline." Again after careful consideration, I changed "istr.getline" to "get," and my input related to books was read successfully. Additionally, I added some lines of code to the write function in both the publication and book modules to display the title as required (only the first 30 characters of them). Moreover, in Milestone 5, where we had to develop the final application, issues began to occur more frequently. A lot of memory leaks were identified there. Besides that, some problems with formatting a date were found in the Date module. The most challenging thing for me in this Milestone was the search function. I almost spent my entire day developing it, and during the development process, I encountered a lot of issues. In the end, I was still able to create it successfully.
+
+Overall, this entire project was too challenging, but by doing it, I have gained a lot of invaluable skills about software, and my eyes were opened towards professional development. If I compare myself to how I was at the beginning of the semester, I would say that I have become much more proficient in software development by doing all the workshops and this library application project.
