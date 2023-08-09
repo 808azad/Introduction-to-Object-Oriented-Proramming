@@ -1,10 +1,12 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <cstring>
+#include <iomanip>
 #include <fstream>
 #include "LibApp.h"
 using namespace std;
 
 namespace sdds {
+
 
 	bool LibApp::confirm(const char* message) {
 		int res = 0;
@@ -75,80 +77,65 @@ namespace sdds {
 	}
 
 	PublicationSelector* LibApp::search(int mode) {
-		PublicationSelector* pblSelectorBook{ nullptr };
-		PublicationSelector* pblSelectorPublication{ nullptr };
-		pblSelectorBook = new PublicationSelector("Select one of the following found matches:");
-		pblSelectorPublication = new PublicationSelector("Select one of the following found matches:");
+		PublicationSelector* pblSelector{ nullptr };
+		pblSelector = new PublicationSelector("Select one of the following found matches:");
 		char buffer[256]{};
+		bool done = false;
 		cout << "Choose the type of publication:" << endl;
 		int choice = m_typePublication.run();
-		char book = 'B';
-		char publication = 'P';
+		char type{};
 		if (choice == 0) {
 			cout << "Aborted!" << endl;
-			cout << "-------------------------------------------------------" << endl;
 		}
 		else {
-			if (choice == 1) book;
-			else if (choice == 2) publication;
+			if (choice == 1) type = 'B';
+			else if (choice == 2) type = 'P';
 			cout << "Publication Title: ";
 			cin.get(buffer, 255);
 			cin.ignore(10000, '\n');
 			for (int i = 0; i < m_NOLP; i++) {
 				bool equal = strstr(m_PPA[i]->getTitle(), buffer) != nullptr;
 				if (m_PPA[i]->getRef() != 0) {
-					if (m_PPA[i]->type() == book) {
+					if (m_PPA[i]->type() == type) {
 						if (equal) {
 							if ((mode == 0) || (mode == 1 && m_PPA[i]->onLoan()) || (mode == 2 && !m_PPA[i]->onLoan())) {
-								*pblSelectorBook << m_PPA[i];
+								*pblSelector << m_PPA[i];
+								done = true;
 							}
-						}
-					}
-					else if (m_PPA[i]->type() == publication) {
-						if (equal) {
-							if ((mode == 0) || (mode == 1 && m_PPA[i]->onLoan()) || (mode == 2 && !m_PPA[i]->onLoan())) {
-								*pblSelectorPublication << m_PPA[i];
-							}
-						}
+						}	
 					}
 				}
 			}
-			if (pblSelectorBook) {
-				pblSelectorBook->sort();
-			}
-		    if (pblSelectorPublication) {
-				pblSelectorPublication->sort();
+			if (!done) {
+				cout << "No matches found!" << endl;
+				delete pblSelector;
+				pblSelector = nullptr;
+
 			}
 			else {
-				cout << "No matches found" << endl;
+				if (pblSelector) {
+					pblSelector->sort();
+				}
 			}
 		}
-		return (choice == 1) ? pblSelectorBook : pblSelectorPublication;
+		return pblSelector;
 	}
 
-	void LibApp::returnPub() {
-		search(0);
-		cout << "Returning publication" << endl;
-		cout << "Publication returned" << endl;
-		cout << endl;
-		m_changed = true;
-	}
 
 	void LibApp::newPublication() {
 		if (m_NOLP < SDDS_LIBRARY_CAPACITY) {
 			cout << "Adding new publication to the library" << endl;
 			cout << "Choose the type of publication:" << endl;
 			int choice = m_typePublication.run();
-			Publication* p{ nullptr };
 			if (choice == 0) {
-				cout << "Aborted!" << endl;
-				cout << "-------------------------------------------------------" << endl;
+				cout << "Aborted!" << endl << endl;
 			}
 			else {
+				Publication* p{ nullptr };
 				if (choice == 1) {
 					p = new Book;
 				}
-				else if(choice == 2){
+				else if (choice == 2) {
 					p = new Publication;
 				}
 				if (p) {
@@ -160,21 +147,24 @@ namespace sdds {
 					cin.ignore(10000, '\n');
 				}
 				if (confirm("Add this publication to the library?")) {
-					m_changed = true;
 					m_PPA[m_NOLP] = p;
 					m_NOLP++;
+					m_changed = true;
 					cout << "Publication added" << endl;
 				}
 				else {
+					cout << "Failed to add publication!" << endl;
 					delete p;
 				}
 				cout << endl;
 			}
 		}
 		else {
-			cout << "The library is full!" << endl;
+			cout << "Library is at its maximum capacity!" << endl;
+			cout << endl;
 		}
 	}
+
 
 	Publication* LibApp::getPub(int getRef) {
 		int i{};
@@ -184,32 +174,80 @@ namespace sdds {
 				done = true;
 			}
 		}
-		return m_PPA[i];
+		return m_PPA[i - 1];
+	}
+
+	void LibApp::returnPub() {
+		cout << "Return publication to the library" << endl;
+		ostream& os = cout;
+		PublicationSelector* pblSelect = search(1);
+		Publication* pbl{ nullptr };
+		if (pblSelect) {
+			int choice = pblSelect->run();
+			if (choice > 0) {
+				pbl = getPub(choice);
+				pbl->write(os) << endl;
+				if (confirm("Return Publication?")) {
+					int onLoanDate = Date() - pbl->checkoutDate();
+					if (onLoanDate > SDDS_MAX_LOAN_DAYS) {
+						double penaltyAmount = (onLoanDate - SDDS_MAX_LOAN_DAYS) * 0.5;
+						cout << "Please pay $" << fixed << setprecision(2) << penaltyAmount << " penalty for being " << onLoanDate - SDDS_MAX_LOAN_DAYS << " days late!" << endl;
+					}
+					pbl->set(0);
+					m_changed = true;
+					cout << "Publication returned" << endl;
+				}
+			}
+			delete pblSelect;
+		}
+		cout << endl;
 	}
 
 	void LibApp::removePublication() {
+		cout << "Removing publication from the library" << endl;
 		ostream& os = cout;
 		PublicationSelector* pblSelect = search(0);
 		Publication* pbl{ nullptr };
-		cout << "Removing Publication from the library" << endl;
-		int choice = pblSelect->run();
-		if (choice > 0) {
-			pbl = getPub(choice);
-			pbl->write(os) << endl;
-   			if (confirm("Remove this publication from the library?")) {
-				pbl->setRef(0);
-				m_changed = true;
-				cout << "Publication removed" << endl;
+		if (pblSelect) {
+			int choice = pblSelect->run();
+			if (choice == 'X') {
+				cout << "Aborted!" << endl;
 			}
+			else {
+				if (choice > 0) {
+					pbl = getPub(choice);
+					pbl->write(os) << endl;
+   					if (confirm("Remove this publication from the library?")) {
+						pbl->setRef(0);
+						m_changed = true;
+						cout << "Publication removed" << endl;
+					}
+				}
+			}
+			delete pblSelect;
 		}
 		cout << endl;
 	}
 
 	void LibApp::checkOutPub() {
-		search(0);
-		if (confirm("Check out publication?")) {
-			m_changed = true;
-			cout << "Publication checked out" << endl;
+		cout << "Checkout publication from the library" << endl;
+		ostream& os = cout;
+		PublicationSelector* pblSelect = search(2);
+		Publication* pbl{ nullptr };
+		if (pblSelect) {
+			int choice = pblSelect->run();
+			if (choice > 0) {
+				pbl = getPub(choice);
+				pbl->write(os) << endl;
+				if (confirm("Check out publication?")) {
+					cout << "Enter Membership number: ";
+					int membership = util.readInt(10000, 99999, "Invalid membership number, try again: ");
+					pbl->set(membership);
+					m_changed = true;
+					cout << "Publication checked out" << endl;
+				}
+			}
+			delete pblSelect;
 		}
 		cout << endl;
 	}

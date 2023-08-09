@@ -66,6 +66,7 @@ namespace sdds {
          case 'x':
             cin.ignore(1000, '\n');
             retVal = 0; // Exit
+            cout << "Aborted!" << endl;
             ok = true;
             break;
          default:
@@ -82,9 +83,11 @@ namespace sdds {
             }
             break;
          }
-      } while (!ok && cout << "Invalid selection, retry" << endl << "> ");
+      } while (!ok);
       return retVal;
    }
+    
+
    PublicationSelector::~PublicationSelector() {
       delete[] m_pub;
    }

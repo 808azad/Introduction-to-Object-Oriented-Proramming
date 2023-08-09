@@ -1,6 +1,8 @@
 #ifndef SDDS_MENU_H__
 #define SDDS_MENU_H__
+
 #include <iostream>
+#include "Utils.h"
 
 namespace sdds {
 	const unsigned int MAX_MENU_ITEMS = 20;
@@ -17,7 +19,6 @@ namespace sdds {
 		std::ostream& display(std::ostream& os = std::cout) const;
 		friend class Menu;
 	};
-
 
 	class Menu {
 		MenuItem m_title{}; // for title
@@ -39,7 +40,7 @@ namespace sdds {
 		const char* operator[](unsigned int index) const;
 		unsigned int operator~();
 	};
-
+	extern Utils util;
 	std::ostream& operator<<(std::ostream& os, const Menu& menu);
 
 }
